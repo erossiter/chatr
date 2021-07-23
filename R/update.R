@@ -78,7 +78,7 @@ update_instruction <- function (bearer_token,
                  instruction_id,
                  ".json")
 
-  out <- chatter_POST(data_list = data_list,
+  out <- chatter_PUT(data_list = data_list,
                       bearer_token = bearer_token,
                       path = path)
 
@@ -121,7 +121,7 @@ update_chatroom <- function (bearer_token,
                  chatroom_id,
                  ".json")
 
-  out <- chatter_POST(data_list = data_list,
+  out <- chatter_PUT(data_list = data_list,
                       bearer_token = bearer_token,
                       path = path)
 
@@ -157,7 +157,7 @@ update_user <- function (bearer_token,
                  user_id,
                  ".json")
 
-  out <- chatter_POST(data_list = data_list,
+  out <- chatter_PUT(data_list = data_list,
                       bearer_token = bearer_token,
                       path = path)
 
@@ -200,7 +200,7 @@ update_chatroom_membership <- function (bearer_token,
                  chatroom_membership_id,
                  ".json")
 
-  out <- chatter_POST(data_list = data_list,
+  out <- chatter_PUT(data_list = data_list,
                       bearer_token = bearer_token,
                       path = path)
 
@@ -243,7 +243,7 @@ update_message <- function (bearer_token,
                  message_id,
                  ".json")
 
-  out <- chatter_POST(data_list = data_list,
+  out <- chatter_PUT(data_list = data_list,
                       bearer_token = bearer_token,
                       path = path)
 
