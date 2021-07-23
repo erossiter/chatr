@@ -2,7 +2,7 @@
 % Please edit documentation in R/create.R
 \name{create_instruction}
 \alias{create_instruction}
-\title{Create instructions}
+\title{Create an instruction}
 \usage{
 create_instruction(bearer_token, experiment_id, name, text)
 }
@@ -19,7 +19,7 @@ create_instruction(bearer_token, experiment_id, name, text)
 Returns ...
 }
 \description{
-Create instructions
+Create an instruction
 }
 \examples{
 

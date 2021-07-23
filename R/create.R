@@ -42,7 +42,7 @@ create_experiment <- function (bearer_token,
   )
 }
 
-#' Create instructions
+#' Create an instruction
 #'
 #' @param bearer_token A string. The researcher's Auth Token found in Chatter online interface > API Credentials.
 #' @param experiment_id A numeric. ...
@@ -70,6 +70,43 @@ create_instruction <- function (bearer_token,
     "experiment_id" = experiment_id,
     "name" = name,
     "text" = text
+  ))
+
+  out <- chatter_POST(data_list = data_list,
+                      bearer_token = bearer_token)
+
+  return_structure(out)
+}
+
+#' Create an chatroom
+#'
+#' @param bearer_token A string. The researcher's Auth Token found in Chatter online interface > API Credentials.
+#' @param topic A string. Unique name for the chatroom.
+#' @param min_duration A numeric.  The minimum time in seconds users must spend in the chatroom before the "Done" button is active.
+#' @param max_duration A numeric.  The maximum time in seconds users must spend in the chatroom before the "Done" button is active.
+#'
+#' @return Returns ...
+#'
+#' @examples
+#'
+#' \dontrun{
+#' create_chatroom(bearer_token = "<your-token-here>",
+#'                     topic = "My First Chatroom",
+#'                     min_duration = 30,
+#'                     max_duration = 600)
+#' }
+#'
+#' @export
+create_chatroom <- function (bearer_token,
+                                topic,
+                                min_duration,
+                                max_duration) {
+
+  data_list <- list("chatroom" = list(
+    "topic" = topic,
+    "slug"= topic,
+    "min_duration" = min_duration,
+    "max_duration" = max_duration
   ))
 
   out <- chatter_POST(data_list = data_list,
@@ -113,13 +150,13 @@ chatter_POST <- function (data_list,
     path <- "/research/experiments.json"
   } else if (what == "instruction") {
     path <- "/research/instructions.json"
-  } else if (what == "chatrooms") {
+  } else if (what == "chatroom") {
     path <- "/research/chatrooms.json"
-  } else if (what == "users") {
+  } else if (what == "user") {
     path <- "/research/users.json"
-  } else if (what == "chatroom_memberships") {
+  } else if (what == "chatroom_membership") {
     path <- "/research/chatroom_memberships.json"
-  } else if (what == "messages") {
+  } else if (what == "message") {
     path <- "/research/messages.json"
   } else {
     stop("TODO: write an error message")
