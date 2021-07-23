@@ -1,7 +1,7 @@
 #' Create an experiment
 #'
 #' @param bearer_token A string. The researcher's Auth Token found in Chatter online interface > API Credentials.
-#' @param name A string. The experiment's name
+#' @param name A string. The experiment's name.
 #' @param post_survey_link Optional. A string. A link to direct users to after the chat
 #' @param moderator_message Optional. A string. The first message in the chat labeled as the "moderator"
 #' @param language Optional. A string. Language of the Chatter features. Defaults to "English" option for "Spanish".
@@ -33,14 +33,7 @@ create_experiment <- function (bearer_token,
                       bearer_token = bearer_token,
                       path = "/research/experiments.json")
 
-  structure(
-    list(
-      content = out$parsed,
-      path = out$path,
-      response = out$resp
-    ),
-    class = "chatr_class"
-  )
+  return_structure(out)
 }
 
 #' Create an instruction

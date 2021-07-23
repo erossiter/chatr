@@ -16,7 +16,7 @@
 retrieve_experiment <- function (bearer_token,
                             experiment_id) {
 
-  path <- paste0("/research/experiments",
+  path <- paste0("/research/experiments/",
                  experiment_id,
                  ".json")
 

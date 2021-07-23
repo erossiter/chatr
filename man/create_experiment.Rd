@@ -15,7 +15,7 @@ create_experiment(
 \arguments{
 \item{bearer_token}{A string. The researcher's Auth Token found in Chatter online interface > API Credentials.}
 
-\item{name}{A string. The experiment's name}
+\item{name}{A string. The experiment's name.}
 
 \item{post_survey_link}{Optional. A string. A link to direct users to after the chat}
 
