@@ -6,7 +6,9 @@
 #' @param moderator_message Optional. A string. The first message in the chat labeled as the "moderator"
 #' @param language Optional. A string. Language of the Chatter features. Defaults to "English" option for "Spanish".
 #'
-#' @return Returns ...
+#' @return Returns a list of four elements.  `status` is a string indicating whether the API call was successful or not,
+#' `error` is a string indicating any error message provided, `content` is a dataframe of the content created, and
+#' `meta_data` is a list of meta data associated with the API call.
 #'
 #' @examples
 #'
@@ -43,7 +45,9 @@ create_experiment <- function (bearer_token,
 #' @param name A string. The instruction's name. Visible only to the researcher
 #' @param text A string.  The instruction's contents.  Visible to the user.  HTML compatible.
 #'
-#' @return Returns ...
+#' @return Returns a list of four elements.  `status` is a string indicating whether the API call was successful or not,
+#' `error` is a string indicating any error message provided, `content` is a dataframe of the content created, and
+#' `meta_data` is a list of meta data associated with the API call.
 #'
 #' @examples
 #'
@@ -80,7 +84,9 @@ create_instruction <- function (bearer_token,
 #' @param min_duration A numeric.  The minimum time in seconds users must spend in the chatroom before the "Done" button is active.
 #' @param max_duration A numeric.  The maximum time in seconds users must spend in the chatroom before the "Done" button is active.
 #'
-#' @return Returns ...
+#' @return Returns a list of four elements.  `status` is a string indicating whether the API call was successful or not,
+#' `error` is a string indicating any error message provided, `content` is a dataframe of the content created, and
+#' `meta_data` is a list of meta data associated with the API call.
 #'
 #' @examples
 #'
@@ -94,8 +100,8 @@ create_instruction <- function (bearer_token,
 #' @export
 create_chatroom <- function (bearer_token,
                                 topic,
-                                min_duration,
-                                max_duration) {
+                                min_duration = NULL,
+                                max_duration = NULL) {
 
   data_list <- list("chatroom" = list(
     "topic" = topic,
@@ -116,7 +122,9 @@ create_chatroom <- function (bearer_token,
 #' @param bearer_token A string. The researcher's Auth Token found in Chatter online interface > API Credentials.
 #' @param username A string. Unique identifier for the user. Only visible to researcher.
 #'
-#' @return Returns ...
+#' @return Returns a list of four elements.  `status` is a string indicating whether the API call was successful or not,
+#' `error` is a string indicating any error message provided, `content` is a dataframe of the content created, and
+#' `meta_data` is a list of meta data associated with the API call.
 #'
 #' @examples
 #'
@@ -147,8 +155,11 @@ create_user <- function (bearer_token,
 #' @param user_id A numeric. The unique ID for the user.
 #' @param chatroom_id A numeric. The unique ID for the chatroom.
 #' @param instruction_id A numeric. The unique ID for the instruction.
+#' @param display_name Optional. A string. The name other chatroom members see associated with the user's messages.
 #'
-#' @return Returns ...
+#' @return Returns a list of four elements.  `status` is a string indicating whether the API call was successful or not,
+#' `error` is a string indicating any error message provided, `content` is a dataframe of the content created, and
+#' `meta_data` is a list of meta data associated with the API call.
 #'
 #' @examples
 #'
@@ -164,12 +175,14 @@ create_user <- function (bearer_token,
 create_chatroom_membership <- function (bearer_token,
                                         user_id,
                                         chatroom_id,
-                                        instruction_id) {
+                                        instruction_id,
+                                        display_name = NULL) {
 
   data_list <- list("chatroom_membership" = list(
     "user_id" = user_id,
     "chatroom_id" = chatroom_id,
-    "instruction_id" = instruction_id
+    "instruction_id" = instruction_id,
+    "display_name" = display_name
   ))
 
   out <- chatter_POST(data_list = data_list,
@@ -187,7 +200,9 @@ create_chatroom_membership <- function (bearer_token,
 #' @param chatroom_id A numeric. The unique ID for the chatroom.
 #' @param content A string.  The message's content.  Visible to all members of the chatroom.
 #'
-#' @return Returns ...
+#' @return Returns a list of four elements.  `status` is a string indicating whether the API call was successful or not,
+#' `error` is a string indicating any error message provided, `content` is a dataframe of the content created, and
+#' `meta_data` is a list of meta data associated with the API call.
 #'
 #' @examples
 #'

@@ -16,7 +16,9 @@ create_message(bearer_token, user_id, chatroom_id, content)
 \item{content}{A string.  The message's content.  Visible to all members of the chatroom.}
 }
 \value{
-Returns ...
+Returns a list of four elements.  \code{status} is a string indicating whether the API call was successful or not,
+\code{error} is a string indicating any error message provided, \code{content} is a dataframe of the content created, and
+\code{meta_data} is a list of meta data associated with the API call.
 }
 \description{
 Create a message

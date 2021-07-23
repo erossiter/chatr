@@ -12,7 +12,9 @@ delete_chatroom_membership(bearer_token, chatroom_membership_id)
 \item{chatroom_membership_id}{A numeric. The unique ID for the chatroom membership.}
 }
 \value{
-Returns ...
+Returns a list of four elements.  \code{status} is a string indicating whether the API call was successful or not,
+\code{error} is a string indicating any error message provided, \code{content} is \code{NA} as no information is created or requested in a DELETE call, and
+\code{meta_data} is a list of meta data associated with the API call.
 }
 \description{
 Delete a chatroom membership

@@ -16,7 +16,9 @@ create_instruction(bearer_token, experiment_id, name, text)
 \item{text}{A string.  The instruction's contents.  Visible to the user.  HTML compatible.}
 }
 \value{
-Returns ...
+Returns a list of four elements.  \code{status} is a string indicating whether the API call was successful or not,
+\code{error} is a string indicating any error message provided, \code{content} is a dataframe of the content created, and
+\code{meta_data} is a list of meta data associated with the API call.
 }
 \description{
 Create an instruction

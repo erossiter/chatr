@@ -12,7 +12,9 @@ retrieve_experiment(bearer_token, experiment_id)
 \item{experiment_id}{A numeric. The unique ID for the experiment.}
 }
 \value{
-Returns ...
+Returns a list of four elements.  \code{status} is a string indicating whether the API call was successful or not,
+\code{error} is a string indicating any error message provided, \code{content} is a dataframe of the requested content, and
+\code{meta_data} is a list of meta data associated with the API call.
 }
 \description{
 Retrieve an experiment

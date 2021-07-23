@@ -27,7 +27,9 @@ update_experiment(
 \item{language}{Optional. A string. Language of the Chatter features. Defaults to "English" option for "Spanish".}
 }
 \value{
-Returns ...
+Returns a list of four elements.  \code{status} is a string indicating whether the API call was successful or not,
+\code{error} is a string indicating any error message provided, \code{content} is a dataframe of the updated content, and
+\code{meta_data} is a list of meta data associated with the API call.
 }
 \description{
 Update an experiment

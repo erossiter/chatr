@@ -12,7 +12,9 @@ retrieve_user(bearer_token, user_id)
 \item{user_id}{A numeric. The unique ID for the user.}
 }
 \value{
-Returns ...
+Returns a list of four elements.  \code{status} is a string indicating whether the API call was successful or not,
+\code{error} is a string indicating any error message provided, \code{content} is a dataframe of the requested content, and
+\code{meta_data} is a list of meta data associated with the API call.
 }
 \description{
 Retrieve a user

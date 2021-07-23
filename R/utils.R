@@ -1,32 +1,53 @@
-return_structure <- function (x) {
-  structure(
-    list(
-      content = x$parsed,
-      path = x$path,
-      response = x$resp
-    ),
-    class = "chatr_class"
-  )
+return_structure <- function (x, delete = F) {
+
+  if (delete) {
+    structure(
+      list(
+        status = x$parsed[[1]],
+        error = x$parsed[[2]],
+        content = NA,
+        meta_data = list(
+          path = x$path,
+          response = x$resp
+        )
+      ),
+      class = "chatr_class"
+    )
+  } else {
+    # Change all JSON NULL's to NA's
+    is.na(x$parsed[[3]]) <- x$parsed[[3]] == "NULL"
+
+    structure(
+      list(
+        status = x$parsed[[1]],
+        error = x$parsed[[2]],
+        content = as.data.frame(x$parsed[[3]]),
+        meta_data = list(
+          path = x$path,
+          response = x$resp
+        )
+      ),
+      class = "chatr_class"
+    )
+  }
+
 }
-
-return_structure <- function (x) {
-
-  # Change all JSON NULL's to NA's
-  is.na(x$parsed[[3]]) <- x$parsed[[3]] == "NULL"
-
-  structure(
-    list(
-      status = x$parsed[[1]],
-      error = x$parsed[[2]],
-      content = as.data.frame(x$parsed[[3]]),
-      meta_data = list(
-        path = x$path,
-        response = x$resp
-      )
-    ),
-    class = "chatr_class"
-  )
-}
+# return_structure <- function (x) {
+#
+#   # Change all JSON NULL's to NA's
+#   #is.na(x$parsed[[3]]) <- x$parsed[[3]] == "NULL"
+#
+#   structure(
+#     list(
+#       content = x$parsed,
+#       meta_data = list(
+#         path = x$path,
+#         response = x$resp
+#       )
+#     ),
+#     class = "chatr_class"
+#   )
+# }
 
 #' @method print chatr_class
 #' @export
@@ -63,6 +84,16 @@ check_resp <- function (resp) {
   if (httr::http_type(resp) != "application/json") {
     stop("API did not return json", call. = FALSE)
   }
+
+  if (resp$status_code == 401) {
+    stop("Unathorized. Check your Bearer Token.")
+  }
+
+  # if (resp$status_code == 400) {
+  #   stop("Check that:\n
+  #        -'topic' and 'name' fields need to be unique.\n
+  #        - 'delete ... before deleting experiment'")
+  # }
 
   parsed <- jsonlite::fromJSON(httr::content(resp, "text"), simplifyVector = T)
 

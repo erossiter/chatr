@@ -4,7 +4,13 @@
 \alias{create_chatroom_membership}
 \title{Create a chatroom membership}
 \usage{
-create_chatroom_membership(bearer_token, user_id, chatroom_id, instruction_id)
+create_chatroom_membership(
+  bearer_token,
+  user_id,
+  chatroom_id,
+  instruction_id,
+  display_name = NULL
+)
 }
 \arguments{
 \item{bearer_token}{A string. The researcher's Auth Token found in Chatter online interface > API Credentials.}
@@ -14,9 +20,13 @@ create_chatroom_membership(bearer_token, user_id, chatroom_id, instruction_id)
 \item{chatroom_id}{A numeric. The unique ID for the chatroom.}
 
 \item{instruction_id}{A numeric. The unique ID for the instruction.}
+
+\item{display_name}{Optional. A string. The name other chatroom members see associated with the user's messages.}
 }
 \value{
-Returns ...
+Returns a list of four elements.  \code{status} is a string indicating whether the API call was successful or not,
+\code{error} is a string indicating any error message provided, \code{content} is a dataframe of the content created, and
+\code{meta_data} is a list of meta data associated with the API call.
 }
 \description{
 Create a chatroom membership

@@ -7,7 +7,9 @@
 #' @param moderator_message Optional. A string. The first message in the chat labeled as the "moderator"
 #' @param language Optional. A string. Language of the Chatter features. Defaults to "English" option for "Spanish".
 #'
-#' @return Returns ...
+#' @return Returns a list of four elements.  `status` is a string indicating whether the API call was successful or not,
+#' `error` is a string indicating any error message provided, `content` is a dataframe of the updated content, and
+#' `meta_data` is a list of meta data associated with the API call.
 #'
 #' @examples
 #'
@@ -51,7 +53,9 @@ update_experiment <- function (bearer_token,
 #' @param name Optional. A string. The instruction's name. Visible only to the researcher
 #' @param text Optional. A string.  The instruction's contents.  Visible to the user.  HTML compatible.
 #'
-#' @return Returns ...
+#' @return Returns a list of four elements.  `status` is a string indicating whether the API call was successful or not,
+#' `error` is a string indicating any error message provided, `content` is a dataframe of the updated content, and
+#' `meta_data` is a list of meta data associated with the API call.
 #'
 #' @examples
 #'
@@ -93,7 +97,9 @@ update_instruction <- function (bearer_token,
 #' @param min_duration Optional. A numeric.  The minimum time in seconds users must spend in the chatroom before the "Done" button is active.
 #' @param max_duration Optional. A numeric.  The maximum time in seconds users must spend in the chatroom before the "Done" button is active.
 #'
-#' @return Returns ...
+#' @return Returns a list of four elements.  `status` is a string indicating whether the API call was successful or not,
+#' `error` is a string indicating any error message provided, `content` is a dataframe of the updated content, and
+#' `meta_data` is a list of meta data associated with the API call.
 #'
 #' @examples
 #'
@@ -134,7 +140,9 @@ update_chatroom <- function (bearer_token,
 #' @param user_id A numeric. The unique ID for the user.
 #' @param username Optional. A string. Unique identifier for the user. Only visible to researcher.
 #'
-#' @return Returns ...
+#' @return Returns a list of four elements.  `status` is a string indicating whether the API call was successful or not,
+#' `error` is a string indicating any error message provided, `content` is a dataframe of the updated content, and
+#' `meta_data` is a list of meta data associated with the API call.
 #'
 #' @examples
 #'
@@ -173,7 +181,9 @@ update_user <- function (bearer_token,
 #' @param chatroom_id Optional. A numeric. The unique ID for the chatroom.
 #' @param instruction_id Optional. A numeric. The unique ID for the instruction.
 #'
-#' @return Returns ...
+#' @return Returns a list of four elements.  `status` is a string indicating whether the API call was successful or not,
+#' `error` is a string indicating any error message provided, `content` is a dataframe of the updated content, and
+#' `meta_data` is a list of meta data associated with the API call.
 #'
 #' @examples
 #'
@@ -216,7 +226,9 @@ update_chatroom_membership <- function (bearer_token,
 #' @param chatroom_id Optional. A numeric. The unique ID for the chatroom.
 #' @param content Optional. A string.  The message's content.  Visible to all members of the chatroom.
 #'
-#' @return Returns ...
+#' @return Returns a list of four elements.  `status` is a string indicating whether the API call was successful or not,
+#' `error` is a string indicating any error message provided, `content` is a dataframe of the updated content, and
+#' `meta_data` is a list of meta data associated with the API call.
 #'
 #' @examples
 #'

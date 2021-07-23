@@ -2,7 +2,9 @@
 #'
 #' @param bearer_token A string. The researcher's Auth Token found in Chatter online interface > API Credentials.
 #'
-#' @return Returns ...
+#' @return Returns a list of four elements.  `status` is a string indicating whether the API call was successful or not,
+#' `error` is a string indicating any error message provided, `content` is a dataframe of the requested content, and
+#' `meta_data` is a list of meta data associated with the API call.
 #'
 #' @examples
 #'
@@ -23,7 +25,9 @@ list_experiments <- function (bearer_token) {
 #'
 #' @param bearer_token A string. The researcher's Auth Token found in Chatter online interface > API Credentials.
 #'
-#' @return Returns ...
+#' @return Returns a list of four elements.  `status` is a string indicating whether the API call was successful or not,
+#' `error` is a string indicating any error message provided, `content` is a dataframe of the requested content, and
+#' `meta_data` is a list of meta data associated with the API call.
 #'
 #' @examples
 #'
@@ -44,7 +48,9 @@ list_instructions <- function (bearer_token) {
 #'
 #' @param bearer_token A string. The researcher's Auth Token found in Chatter online interface > API Credentials.
 #'
-#' @return Returns ...
+#' @return Returns a list of four elements.  `status` is a string indicating whether the API call was successful or not,
+#' `error` is a string indicating any error message provided, `content` is a dataframe of the requested content, and
+#' `meta_data` is a list of meta data associated with the API call.
 #'
 #' @examples
 #'
@@ -65,7 +71,9 @@ list_chatrooms <- function (bearer_token) {
 #'
 #' @param bearer_token A string. The researcher's Auth Token found in Chatter online interface > API Credentials.
 #'
-#' @return Returns ...
+#' @return Returns a list of four elements.  `status` is a string indicating whether the API call was successful or not,
+#' `error` is a string indicating any error message provided, `content` is a dataframe of the requested content, and
+#' `meta_data` is a list of meta data associated with the API call.
 #'
 #' @examples
 #'
@@ -86,7 +94,9 @@ list_users <- function (bearer_token) {
 #'
 #' @param bearer_token A string. The researcher's Auth Token found in Chatter online interface > API Credentials.
 #'
-#' @return Returns ...
+#' @return Returns a list of four elements.  `status` is a string indicating whether the API call was successful or not,
+#' `error` is a string indicating any error message provided, `content` is a dataframe of the requested content, and
+#' `meta_data` is a list of meta data associated with the API call.
 #'
 #' @examples
 #'
@@ -108,7 +118,9 @@ list_chatroom_memberships <- function (bearer_token) {
 #'
 #' @param bearer_token A string. The researcher's Auth Token found in Chatter online interface > API Credentials.
 #'
-#' @return Returns ...
+#' @return Returns a list of four elements.  `status` is a string indicating whether the API call was successful or not,
+#' `error` is a string indicating any error message provided, `content` is a dataframe of the requested content, and
+#' `meta_data` is a list of meta data associated with the API call.
 #'
 #' @examples
 #'

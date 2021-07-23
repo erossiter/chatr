@@ -24,7 +24,9 @@ update_message(
 \item{content}{Optional. A string.  The message's content.  Visible to all members of the chatroom.}
 }
 \value{
-Returns ...
+Returns a list of four elements.  \code{status} is a string indicating whether the API call was successful or not,
+\code{error} is a string indicating any error message provided, \code{content} is a dataframe of the updated content, and
+\code{meta_data} is a list of meta data associated with the API call.
 }
 \description{
 Update a message

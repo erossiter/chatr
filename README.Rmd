@@ -4,7 +4,7 @@ output: github_document
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-```{r, include = FALSE}
+```{r, eval = T, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
@@ -18,37 +18,187 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 <!-- badges: end -->
 
-The goal of chatr is to ...
+The goal of chatr is to allow researchers to easily set up Chatter experiments.
+
+To get started, visit [Chatter](http://chatter-washu.herokuapp.com/research/sign_in) and sign up for a researcher account.  You'll receive an email when your account is approved.
+
+Log in and find your API credentials.  You'll need the Token for any calls you make to Chatter with `chatr`.  I recommend saving it as a variable.
+
+```{r, eval=F}
+bearer_token <- "your token here"
+```
+
+```{r, eval = T, include=F, echo = F}
+bearer_token <- Sys.getenv("bearer_token")
+```
+
 
 ## Installation
 
-You can install the released version of chatr from [CRAN](https://CRAN.R-project.org) with:
+You can install the `chatr` package from Github.
 
 ``` r
-install.packages("chatr")
+#install.packages("devtools")
+devtools::install_github("erossiter/chatr")
 ```
+
+After install, you should load the package.
+
+```{r, eval=T}
+library(chatr)
+```
+
 
 ## Example
 
-This is a basic example which shows you how to solve a common problem:
+Running an experiment with `chatr` requires seven basic steps.  I'll walk through a basic example here.
 
-```{r example}
-library(chatr)
-## basic example code
+1. Create an experiment
+2. Create instructions
+3. Create chatrooms
+4. Create users
+5. Create chatroom memberships
+6. Run the experiment
+7. Download results
+
+### Create an experiment
+
+First, you create an experiment with the `create_experiment` function.  All that is required is a name for the experiment, but here I also supply a link users are redirected to when clicking the "Done" button among other arguments.
+
+```{r eval=T, echo=T}
+my_experiment <- create_experiment(bearer_token = bearer_token,
+                                   name = "My First Experiment",
+                                   post_survey_link = "http://erossiter.com/",
+                                   moderator_message = "Welcome to the chat!",
+                                   language = "English")
+my_experiment
+```
+We'll note the experiment id.  We'll need it moving forward.
+
+```{r}
+(experiment_id <- my_experiment$content$id)
 ```
 
-What is special about using `README.Rmd` instead of just `README.md`? You can include R chunks like so:
+### Create instructions
 
-```{r cars}
-summary(cars)
+Next, we create instructions for our users.  For this experiment, I have two unique instructions.  Users will be assigned to either the treatment or control instructions.  Both as associated with the experiment we just created via the experiment id. 
+
+```{r}
+instruction_t <- create_instruction(bearer_token = bearer_token,
+                   experiment_id = experiment_id,
+                   name = "Treatment",
+                   text = "Please talk about X.")
+
+instruction_c <- create_instruction(bearer_token = bearer_token,
+                   experiment_id = experiment_id,
+                   name = "Control",
+                   text = "Please talk about Y.")
 ```
 
-You'll still need to render `README.Rmd` regularly, to keep `README.md` up-to-date. `devtools::build_readme()` is handy for this. You could also use GitHub Actions to re-render `README.Rmd` every time you push. An example workflow can be found here: <https://github.com/r-lib/actions/tree/master/examples>.
+We'll note the instruction ids as well.
 
-You can also embed plots, for example:
-
-```{r pressure, echo = FALSE}
-plot(pressure)
+```{r}
+(treatment_id <- instruction_t$content$id)
+(control_id <- instruction_c$content$id)
 ```
 
-In that case, don't forget to commit and push the resulting figure files, so they display on GitHub and CRAN.
+
+
+### Create chatrooms
+
+Next, let's create ten chatrooms.
+
+```{r}
+for(i in 1:10){
+  create_chatroom(bearer_token = bearer_token,
+                topic = paste0("chatroom", i),
+                min_duration = 180)
+}
+```
+
+We can see that our chatrooms have been created with another `chatr` function: `list_chatrooms`.  This function returns a list, and we're interested in the `content` element right now holding a dataframe with information about our chatrooms.
+
+```{r}
+my_chatrooms <- list_chatrooms(bearer_token = bearer_token)
+my_chatrooms$content
+```
+We'll note the chatroom ids.
+
+```{r}
+(chatroom_id <- my_chatrooms$content$id)
+```
+
+
+### Create users
+
+Next we'll create 20 users and check them out.
+
+```{r}
+for(i in 1:20){
+  create_user(bearer_token = bearer_token,
+              username = paste0("user", i))
+}
+```
+
+```{r}
+my_users <- list_users(bearer_token)
+my_users$content
+```
+And, we'll again note the ids.
+
+```{r}
+(user_id <- my_users$content$id)
+```
+
+### Create chatroom memberships
+
+Finally, we need to tie it all together.  We need to create chatroom memberships, and we do so by assigning users and instructions to chatrooms.  To help visualize what we're doing ahead of time, let's create a dataframe where each row is a user, and we note which chatroom they're assigned to and which instruction they should see.
+
+We'll also give each user an optional display name that others in the chatroom see alongside the user's messages.
+
+```{r}
+# each row is a user
+exp <- data.frame(user_id = user_id)
+
+# consecutive users are put in a chatroom together
+exp$chatroom_id <- rep(chatroom_id, each = 2)
+
+# the first five chatrooms are in the treatment,
+# the last five are in the control
+exp$instruction_id <- rep(c(treatment_id, control_id), each = 10)
+
+# display names
+exp$display_name <- stringi::stri_rand_strings(20, 5)
+```
+
+Finally, we tell Chatter.
+
+```{r}
+for(i in 1:nrow(exp)){
+  create_chatroom_membership(bearer_token = bearer_token,
+                           user_id = exp$user_id[i],
+                           chatroom_id = exp$chatroom_id[i],
+                           instruction_id = exp$instruction_id[i],
+                           display_name = exp$display_name[i])
+}
+```
+
+```{r}
+my_chatroom_memberships <- list_chatroom_memberships(bearer_token)
+my_chatroom_memberships$content
+```
+### Delete
+
+You can delete this example with similar calls to the API.
+
+```{r, echo=T, eval=T, results = 'hide'}
+for(i in 1:length(chatroom_id)) try(delete_chatroom(bearer_token, chatroom_id[i]))
+for(i in 1:length(user_id)) try(delete_user(bearer_token, user_id[i]))
+for(i in 1:length(my_chatroom_memberships$content$id)){
+  try(delete_chatroom_membership(bearer_token, my_chatroom_memberships$content$id[i]))
+}
+try(delete_instruction(bearer_token, instruction_id = treatment_id))
+try(delete_instruction(bearer_token, instruction_id = control_id))
+try(delete_experiment(bearer_token, experiment_id))
+```
+

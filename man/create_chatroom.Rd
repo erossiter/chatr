@@ -4,7 +4,7 @@
 \alias{create_chatroom}
 \title{Create a chatroom}
 \usage{
-create_chatroom(bearer_token, topic, min_duration, max_duration)
+create_chatroom(bearer_token, topic, min_duration = NULL, max_duration = NULL)
 }
 \arguments{
 \item{bearer_token}{A string. The researcher's Auth Token found in Chatter online interface > API Credentials.}
@@ -16,7 +16,9 @@ create_chatroom(bearer_token, topic, min_duration, max_duration)
 \item{max_duration}{A numeric.  The maximum time in seconds users must spend in the chatroom before the "Done" button is active.}
 }
 \value{
-Returns ...
+Returns a list of four elements.  \code{status} is a string indicating whether the API call was successful or not,
+\code{error} is a string indicating any error message provided, \code{content} is a dataframe of the content created, and
+\code{meta_data} is a list of meta data associated with the API call.
 }
 \description{
 Create a chatroom

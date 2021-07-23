@@ -3,7 +3,9 @@
 #' @param bearer_token A string. The researcher's Auth Token found in Chatter online interface > API Credentials.
 #' @param experiment_id A numeric. The unique ID for the experiment.
 #'
-#' @return Returns ...
+#' @return Returns a list of four elements.  `status` is a string indicating whether the API call was successful or not,
+#' `error` is a string indicating any error message provided, `content` is `NA` as no information is created or requested in a DELETE call, and
+#' `meta_data` is a list of meta data associated with the API call.
 #'
 #' @examples
 #'
@@ -22,7 +24,7 @@ delete_experiment <- function (bearer_token,
   out <- chatter_DELETE(bearer_token = bearer_token,
                         path = path)
 
-  return_structure(out)
+  return_structure(out, delete = T)
 }
 
 #' Delete an instruction
@@ -30,7 +32,9 @@ delete_experiment <- function (bearer_token,
 #' @param bearer_token A string. The researcher's Auth Token found in Chatter online interface > API Credentials.
 #' @param instruction_id A numeric. The unique ID for the instruction.
 #'
-#' @return Returns ...
+#' @return Returns a list of four elements.  `status` is a string indicating whether the API call was successful or not,
+#' `error` is a string indicating any error message provided, `content` is `NA` as no information is created or requested in a DELETE call, and
+#' `meta_data` is a list of meta data associated with the API call.
 #'
 #' @note Note you need to delete any chatroom memberships that contain the instruction
 #' before you can successfully delete the instruction.
@@ -52,7 +56,7 @@ delete_instruction <- function (bearer_token,
   out <- chatter_DELETE(bearer_token = bearer_token,
                         path = path)
 
-  return_structure(out)
+  return_structure(out, delete = T)
 }
 
 #' Delete a chatroom
@@ -60,7 +64,9 @@ delete_instruction <- function (bearer_token,
 #' @param bearer_token A string. The researcher's Auth Token found in Chatter online interface > API Credentials.
 #' @param chatroom_id A numeric. The unique ID for the chatroom.
 #'
-#' @return Returns ...
+#' @return Returns a list of four elements.  `status` is a string indicating whether the API call was successful or not,
+#' `error` is a string indicating any error message provided, `content` is `NA` as no information is created or requested in a DELETE call, and
+#' `meta_data` is a list of meta data associated with the API call.
 #'
 #' @examples
 #'
@@ -79,7 +85,7 @@ delete_chatroom <- function (bearer_token,
   out <- chatter_DELETE(bearer_token = bearer_token,
                         path = path)
 
-  return_structure(out)
+  return_structure(out, delete = T)
 }
 
 
@@ -88,7 +94,9 @@ delete_chatroom <- function (bearer_token,
 #' @param bearer_token A string. The researcher's Auth Token found in Chatter online interface > API Credentials.
 #' @param user_id A numeric. The unique ID for the user.
 #'
-#' @return Returns ...
+#' @return Returns a list of four elements.  `status` is a string indicating whether the API call was successful or not,
+#' `error` is a string indicating any error message provided, `content` is `NA` as no information is created or requested in a DELETE call, and
+#' `meta_data` is a list of meta data associated with the API call.
 #'
 #' @examples
 #'
@@ -107,7 +115,7 @@ delete_user <- function (bearer_token,
   out <- chatter_DELETE(bearer_token = bearer_token,
                         path = path)
 
-  return_structure(out)
+  return_structure(out, delete = T)
 }
 
 #' Delete a chatroom membership
@@ -115,7 +123,9 @@ delete_user <- function (bearer_token,
 #' @param bearer_token A string. The researcher's Auth Token found in Chatter online interface > API Credentials.
 #' @param chatroom_membership_id A numeric. The unique ID for the chatroom membership.
 #'
-#' @return Returns ...
+#' @return Returns a list of four elements.  `status` is a string indicating whether the API call was successful or not,
+#' `error` is a string indicating any error message provided, `content` is `NA` as no information is created or requested in a DELETE call, and
+#' `meta_data` is a list of meta data associated with the API call.
 #'
 #' @examples
 #'
@@ -134,7 +144,7 @@ delete_chatroom_membership <- function (bearer_token,
   out <- chatter_DELETE(bearer_token = bearer_token,
                         path = path)
 
-  return_structure(out)
+  return_structure(out, delete = T)
 }
 
 #' Delete a message
@@ -142,7 +152,9 @@ delete_chatroom_membership <- function (bearer_token,
 #' @param bearer_token A string. The researcher's Auth Token found in Chatter online interface > API Credentials.
 #' @param message_id A numeric. The unique ID for the message.
 #'
-#' @return Returns ...
+#' @return Returns a list of four elements.  `status` is a string indicating whether the API call was successful or not,
+#' `error` is a string indicating any error message provided, `content` is `NA` as no information is created or requested in a DELETE call, and
+#' `meta_data` is a list of meta data associated with the API call.
 #'
 #' @examples
 #'
@@ -161,6 +173,6 @@ delete_message <- function (bearer_token,
   out <- chatter_DELETE(bearer_token = bearer_token,
                         path = path)
 
-  return_structure(out)
+  return_structure(out, delete = T)
 }
 

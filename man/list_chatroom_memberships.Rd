@@ -10,7 +10,9 @@ list_chatroom_memberships(bearer_token)
 \item{bearer_token}{A string. The researcher's Auth Token found in Chatter online interface > API Credentials.}
 }
 \value{
-Returns ...
+Returns a list of four elements.  \code{status} is a string indicating whether the API call was successful or not,
+\code{error} is a string indicating any error message provided, \code{content} is a dataframe of the requested content, and
+\code{meta_data} is a list of meta data associated with the API call.
 }
 \description{
 List all chatroom memberships
