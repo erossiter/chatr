@@ -187,18 +187,78 @@ for(i in 1:nrow(exp)){
 my_chatroom_memberships <- list_chatroom_memberships(bearer_token)
 my_chatroom_memberships$content
 ```
-### Delete
+### Other functionality
 
-You can delete this example with similar calls to the API.
+- `create` create an entry
+- `update` update field(s) for an entry
+- `retrieve` retrieve an entry
+- `list` list all entries
+- `delete` delete an entry (you can delete this example with the following code)
 
 ```{r, echo=T, eval=T, results = 'hide'}
-for(i in 1:length(chatroom_id)) try(delete_chatroom(bearer_token, chatroom_id[i]))
-for(i in 1:length(user_id)) try(delete_user(bearer_token, user_id[i]))
-for(i in 1:length(my_chatroom_memberships$content$id)){
-  try(delete_chatroom_membership(bearer_token, my_chatroom_memberships$content$id[i]))
+for (i in 1:length(chatroom_id)) {
+  try(delete_chatroom(bearer_token, chatroom_id[i]))
+}
+for (i in 1:length(user_id)) {
+  try(delete_user(bearer_token, user_id[i]))
+}
+for (i in 1:length(my_chatroom_memberships$content$id)) {
+  try(delete_chatroom_membership(bearer_token,
+      my_chatroom_memberships$content$id[i]))
 }
 try(delete_instruction(bearer_token, instruction_id = treatment_id))
 try(delete_instruction(bearer_token, instruction_id = control_id))
 try(delete_experiment(bearer_token, experiment_id))
 ```
 
+# In practice
+
+There are many ways to use Chatter in practice.
+
+- You could collect pre-treatment information and set up chatrooms amongst specific participants.  Here, you could email participants a specific link to join.
+- You could have participants create their own Chatter account (and thus pick their own username), and use the API to assign them to chatrooms (with a script in real time or not.)
+- You could reprogram an experiment and feed participants into the chatrooms in real time as they are taking your survey.
+- etc.
+
+Here, I'll discuss two broad options for using Chatter.  Participants are assigned pre-specified chatrooms, or participants are assigned chatrooms by convenience as they are available.  I'll demonstrate both with the Qualtrics survey platform.
+
+In either of these cases, deeplinks are useful.  Deeplinks to Chatter take the following form.^[The `room` field is optional. Specifying the `room` field will bring a user *into* the chat, without this field the user will see a list of chatrooms they are assigned to and click on one.]
+
+`http://chatter-washu.herokuapp.com/deeplink?user=<username>&room=<chatroom_id`
+
+If you didn't delete the example experiment created above, you can use the following deeplink to see.
+
+`http://chatter-washu.herokuapp.com/deeplink?user=user1&room=2631`
+
+## Coordinated chats
+
+If you'd like to coordinate chats amongst specific users, hopefully you can see how the deeplinks are useful!
+
+If you are able to email users, you can email them their specific deeplink.
+
+If users know the username you've created for them (perhaps on MTurk it is their MTurk id), they can login easily themselves using the Chatter interface.
+
+Or, you can redirect from a Qualtrics survey.  It's three simple steps.  First, create your question where you ask participants for their unique identifier (that you already know from the pre-treatment survey and was used to set up chatrooms).
+
+Second, prepare to edit the URL users are redirected to at the end of the survey.  Edit end of survey > End of survey message > Redirect to URL.
+
+Third, paste the deeplink there with [piped text](https://www.qualtrics.com/support/survey-platform/survey-module/editing-questions/piped-text/piped-text-overview/), grabbing the user's id from the Qualtrics question you just created.
+`http://chatter-washu.herokuapp.com/deeplink?user=${q://QID1/ChoiceTextEntryValue}`
+
+
+TODO: screenshot here
+
+
+
+
+## Real-time chats
+
+Real-time chats can be created with deeplinks, too.  Again, you need to create an experiment just as we did before.  The difference is that you will not know ahead of time exactly which participant will be filtered into each chatroom.
+
+In Qualtrics, the idea is to increment an embedded data variable each time someone completes the survey.  If I'm the first participant to finish the survey, I'm "user1" and it is already programmed that I am filtered into "chatroom1".  The next person completes the survey, they are "user2", and join me in "chatroom1". 
+
+TODO: When I get my Qualtrics account back I have an example of this. https://www.qualtrics.com/support/survey-platform/survey-module/survey-tools/quotas/#UsingQuotasInOtherPartsOfQualtrics
+
+`http://chatter-washu.herokuapp.com/deeplink?user=EMBEDDED_DATA`
+
+TODO: A more advance feature is real-time chats with a script prepared to make chatrooms on the fly...

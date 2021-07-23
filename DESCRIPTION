@@ -1,13 +1,13 @@
 Package: chatr
 Title: R Wrapper Functions for Chatter API
-Version: 0.0.0.9000
+Version: 0.1.0.0
 Authors@R: 
     person(given = "Erin",
            family = "Rossiter",
            role = c("aut", "cre"),
            email = "erossite@nd.edu",
            comment = c(ORCID = "0000-0003-4446-4272"))
-Description: What the package does (one paragraph).
+Description: chatr provides wrapper functions to easily make calls to the Chatter API set up experiments involving interpersonal communication.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true

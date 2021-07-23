@@ -89,10 +89,13 @@ check_resp <- function (resp) {
     stop("Unathorized. Check your Bearer Token.")
   }
 
+  # TODO: isolate more informative error messages,
+  # flag common problems in documentation as well
+  #
   # if (resp$status_code == 400) {
   #   stop("Check that:\n
   #        -'topic' and 'name' fields need to be unique.\n
-  #        - 'delete ... before deleting experiment'")
+  #        - 'before deleting experiment, delete...'")
   # }
 
   parsed <- jsonlite::fromJSON(httr::content(resp, "text"), simplifyVector = T)
