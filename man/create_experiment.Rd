@@ -32,7 +32,7 @@ Create an experiment
 \examples{
 
 \dontrun{
-create_experiment(bearer_token = "foo",
+create_experiment(bearer_token = "<your-token-here>",
                   name = "My First Experiment")
 }
 

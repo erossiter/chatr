@@ -7,12 +7,11 @@
 #' @param language Optional. A string. Language of the Chatter features. Defaults to "English" option for "Spanish".
 #'
 #' @return Returns ...
-#' @export
 #'
 #' @examples
 #'
 #' \dontrun{
-#' create_experiment(bearer_token = "foo",
+#' create_experiment(bearer_token = "<your-token-here>",
 #'                   name = "My First Experiment")
 #' }
 #'
@@ -39,20 +38,66 @@ create_experiment <- function (bearer_token,
       path = out$path,
       response = out$resp
     ),
-    class = "chatr_experiment"
+    class = "chatr_class"
   )
 }
 
-print.chatr_experiment <- function(x, ...) {
+#' Create instructions
+#'
+#' @param bearer_token A string. The researcher's Auth Token found in Chatter online interface > API Credentials.
+#' @param experiment_id A numeric. ...
+#' @param name A string. The instruction's name, visible only to the researcher
+#' @param text A string.  The instruction's contents visible to the user.  HTML compatible.
+#'
+#' @return Returns ...
+#'
+#' @examples
+#'
+#' \dontrun{
+#' create_instruction(bearer_token = "<your-token-here>",
+#'                     experiment_id = 1,
+#'                     name = "Instructions for My First Experiment",
+#'                     text = "Follow these instructions.")
+#' }
+#'
+#' @export
+create_instruction <- function (bearer_token,
+                               experiment_id,
+                               name,
+                               text) {
+
+  data_list <- list("instruction" = list(
+    "experiment_id" = experiment_id,
+    "name" = name,
+    "text" = text
+  ))
+
+  out <- chatter_POST(data_list = data_list,
+                      bearer_token = bearer_token)
+
+  return_structure(out)
+}
+
+
+# Helper functions ----
+return_structure <- function (x) {
+  structure(
+    list(
+      content = x$parsed,
+      path = x$path,
+      response = x$resp
+    ),
+    class = "chatr_class"
+  )
+}
+
+print.chatr_class <- function (x, ...) {
   cat("<Chatter ",
       x$path,
       ">\n", sep = "")
   utils::str(x$content)
   invisible(x)
 }
-
-
-
 
 chatter_POST <- function (data_list,
                           bearer_token) {
@@ -66,7 +111,7 @@ chatter_POST <- function (data_list,
   what <- names(data_list)
   if (what == "experiment") {
     path <- "/research/experiments.json"
-  } else if (what == "instructions") {
+  } else if (what == "instruction") {
     path <- "/research/instructions.json"
   } else if (what == "chatrooms") {
     path <- "/research/chatrooms.json"
@@ -99,11 +144,9 @@ chatter_POST <- function (data_list,
 
   if (httr::http_error(resp)) {
     stop(
-      sprintf(
-        "GitHub API request failed [%s]\n%s\n<%s>",
-        httr::status_code(resp),
-        parsed$message,
-        parsed$documentation_url
+      sprintf("Chatter API request failed [%s]\n%s",
+        resp$status_code,
+        parsed$error
       ),
       call. = FALSE
     )
