@@ -100,3 +100,21 @@ chatter_GET <- function (bearer_token,
               path = path,
               resp = resp))
 }
+
+#' @keywords internal
+chatter_DELETE <- function (bearer_token,
+                            path) {
+
+  setup <- call_setup(bearer_token, path)
+
+  resp <- httr::DELETE(url = setup$url,
+                       setup$headers,
+                       setup$content,
+                       setup$ua)
+
+  parsed <- check_resp(resp)
+
+  return(list(parsed = parsed,
+              path = path,
+              resp = resp))
+}
