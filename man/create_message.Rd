@@ -26,9 +26,9 @@ Create a message
 \dontrun{
 #create experiment, instruction, user, and chatroom first
 create_message(bearer_token = "<your-token-here>",
-                           user_id = 1,
-                           chatroom_id = 1,
-                           content = "hi")
+               user_id = 1,
+               chatroom_id = 1,
+               content = "hi")
 }
 
 }

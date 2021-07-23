@@ -25,9 +25,9 @@ Create a chatroom
 
 \dontrun{
 create_chatroom(bearer_token = "<your-token-here>",
-                    topic = "My First Chatroom",
-                    min_duration = 30,
-                    max_duration = 600)
+                topic = "My First Chatroom",
+                min_duration = 30,
+                max_duration = 600)
 }
 
 }

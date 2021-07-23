@@ -30,7 +30,8 @@ create_experiment <- function (bearer_token,
   ))
 
   out <- chatter_POST(data_list = data_list,
-                       bearer_token = bearer_token)
+                      bearer_token = bearer_token,
+                      path = "/research/experiments.json")
 
   structure(
     list(
@@ -55,9 +56,9 @@ create_experiment <- function (bearer_token,
 #'
 #' \dontrun{
 #' create_instruction(bearer_token = "<your-token-here>",
-#'                     experiment_id = 1, #create experiment first
-#'                     name = "Instructions for My First Experiment",
-#'                     text = "Follow these instructions.")
+#'                    experiment_id = 1, # create experiment first
+#'                    name = "Instructions for My First Experiment",
+#'                    text = "Follow these instructions.")
 #' }
 #'
 #' @export
@@ -73,7 +74,8 @@ create_instruction <- function (bearer_token,
   ))
 
   out <- chatter_POST(data_list = data_list,
-                      bearer_token = bearer_token)
+                      bearer_token = bearer_token,
+                      path = "/research/instructions.json")
 
   return_structure(out)
 }
@@ -91,9 +93,9 @@ create_instruction <- function (bearer_token,
 #'
 #' \dontrun{
 #' create_chatroom(bearer_token = "<your-token-here>",
-#'                     topic = "My First Chatroom",
-#'                     min_duration = 30,
-#'                     max_duration = 600)
+#'                 topic = "My First Chatroom",
+#'                 min_duration = 30,
+#'                 max_duration = 600)
 #' }
 #'
 #' @export
@@ -110,7 +112,8 @@ create_chatroom <- function (bearer_token,
   ))
 
   out <- chatter_POST(data_list = data_list,
-                      bearer_token = bearer_token)
+                      bearer_token = bearer_token,
+                      path = "/research/chatrooms.json")
 
   return_structure(out)
 }
@@ -138,7 +141,8 @@ create_user <- function (bearer_token,
   ))
 
   out <- chatter_POST(data_list = data_list,
-                      bearer_token = bearer_token)
+                      bearer_token = bearer_token,
+                      path = "/research/users.json")
 
   return_structure(out)
 }
@@ -176,7 +180,8 @@ create_chatroom_membership <- function (bearer_token,
   ))
 
   out <- chatter_POST(data_list = data_list,
-                      bearer_token = bearer_token)
+                      bearer_token = bearer_token,
+                      path = "/research/chatroom_memberships.json")
 
   return_structure(out)
 }
@@ -196,9 +201,9 @@ create_chatroom_membership <- function (bearer_token,
 #' \dontrun{
 #' #create experiment, instruction, user, and chatroom first
 #' create_message(bearer_token = "<your-token-here>",
-#'                            user_id = 1,
-#'                            chatroom_id = 1,
-#'                            content = "hi")
+#'                user_id = 1,
+#'                chatroom_id = 1,
+#'                content = "hi")
 #' }
 #'
 #' @export
@@ -214,86 +219,8 @@ create_message <- function (bearer_token,
   ))
 
   out <- chatter_POST(data_list = data_list,
-                      bearer_token = bearer_token)
+                      bearer_token = bearer_token,
+                      path = "/research/messages.json")
 
   return_structure(out)
-}
-
-
-# Helper functions ----
-return_structure <- function (x) {
-  structure(
-    list(
-      content = x$parsed,
-      path = x$path,
-      response = x$resp
-    ),
-    class = "chatr_class"
-  )
-}
-
-print.chatr_class <- function (x, ...) {
-  cat("<Chatter ",
-      x$path,
-      ">\n", sep = "")
-  utils::str(x$content)
-  invisible(x)
-}
-
-chatter_POST <- function (data_list,
-                          bearer_token) {
-
-  url <- "http://chatter-washu.herokuapp.com"
-  headers <- httr::add_headers(Authorization = paste0("Bearer ", bearer_token))
-  content <- httr::content_type("application/json; charset=utf-8")
-  ua <- httr::user_agent("http://github.com/erossiter/erossiter.github.io")
-
-  # modify URL
-  what <- names(data_list)
-  if (what == "experiment") {
-    path <- "/research/experiments.json"
-  } else if (what == "instruction") {
-    path <- "/research/instructions.json"
-  } else if (what == "chatroom") {
-    path <- "/research/chatrooms.json"
-  } else if (what == "user") {
-    path <- "/research/users.json"
-  } else if (what == "chatroom_membership") {
-    path <- "/research/chatroom_memberships.json"
-  } else if (what == "message") {
-    path <- "/research/messages.json"
-  } else {
-    stop("TODO: write an error message")
-  }
-  url <- httr::modify_url(url = url, path = path)
-
-  # transform R list to JSON
-  json <- jsonlite::toJSON(data_list, auto_unbox = T)
-
-  resp <- httr::POST(url = url,
-                     body = json,
-                     encode = "raw",
-                     headers,
-                     content,
-                     ua)
-
-  if (httr::http_type(resp) != "application/json") {
-    stop("API did not return json", call. = FALSE)
-  }
-
-  parsed <- jsonlite::fromJSON(httr::content(resp, "text"), simplifyVector = T)
-
-  if (httr::http_error(resp)) {
-    stop(
-      sprintf("Chatter API request failed [%s]\n%s",
-        resp$status_code,
-        parsed$error
-      ),
-      call. = FALSE
-    )
-  }
-
-  return(list(parsed = parsed,
-              path = path,
-              resp = resp))
 }
