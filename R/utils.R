@@ -9,12 +9,32 @@ return_structure <- function (x) {
   )
 }
 
+return_structure <- function (x) {
+
+  # Change all JSON NULL's to NA's
+  is.na(x$parsed[[3]]) <- x$parsed[[3]] == "NULL"
+
+  structure(
+    list(
+      status = x$parsed[[1]],
+      error = x$parsed[[2]],
+      content = as.data.frame(x$parsed[[3]]),
+      meta_data = list(
+        path = x$path,
+        response = x$resp
+      )
+    ),
+    class = "chatr_class"
+  )
+}
+
 #' @method print chatr_class
 #' @export
 print.chatr_class <- function (x, ...) {
-  cat("<Chatter ",
-      x$path,
-      ">\n", sep = "")
+  cat("<Chatter ", x$meta_data$path, ">\n",
+      "Status: ", x$status, "\n",
+      "Error: ", ifelse(is.null(x$error), "none", x$error), "\n",
+      sep = "")
   utils::str(x$content)
   invisible(x)
 }
