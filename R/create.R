@@ -45,9 +45,9 @@ create_experiment <- function (bearer_token,
 #' Create an instruction
 #'
 #' @param bearer_token A string. The researcher's Auth Token found in Chatter online interface > API Credentials.
-#' @param experiment_id A numeric. ...
-#' @param name A string. The instruction's name, visible only to the researcher
-#' @param text A string.  The instruction's contents visible to the user.  HTML compatible.
+#' @param experiment_id An integer. The unique ID for the experiment.
+#' @param name A string. The instruction's name. Visible only to the researcher
+#' @param text A string.  The instruction's contents.  Visible to the user.  HTML compatible.
 #'
 #' @return Returns ...
 #'
@@ -135,6 +135,44 @@ create_user <- function (bearer_token,
 
   data_list <- list("user" = list(
     "username" = username
+  ))
+
+  out <- chatter_POST(data_list = data_list,
+                      bearer_token = bearer_token)
+
+  return_structure(out)
+}
+
+
+#' Create a chatroom membership
+#'
+#' @param bearer_token A string. The researcher's Auth Token found in Chatter online interface > API Credentials.
+#' @param user_id An integer. The unique ID for the user.
+#' @param chatroom_id An integer. The unique ID for the chatroom.
+#' @param instruction_id An integer. The unique ID for the instruction.
+#'
+#' @return Returns ...
+#'
+#' @examples
+#'
+#' \dontrun{
+#' #create experiment, instruction, user, and chatroom first
+#' create_chatroom_membership(bearer_token = "<your-token-here>",
+#'                            user_id = 1,
+#'                            chatroom_id = 1,
+#'                            instruction_id = 1)
+#' }
+#'
+#' @export
+create_chatroom_membership <- function (bearer_token,
+                                        user_id,
+                                        chatroom_id,
+                                        instruction_id) {
+
+  data_list <- list("chatroom_membership" = list(
+    "user_id" = user_id,
+    "chatroom_id" = chatroom_id,
+    "instruction_id" = instruction_id
   ))
 
   out <- chatter_POST(data_list = data_list,
