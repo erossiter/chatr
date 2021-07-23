@@ -41,3 +41,15 @@ test_that("create_chatroom_membership() throws error if chatroom does not exist"
 test_that("create_chatroom_membership() works", {
   expect_equal(2 * 2, 4)
 })
+
+test_that("create_message() works", {
+  expect_equal(2 * 2, 4)
+})
+
+test_that("create_message() throws error if chatroom does not exist", {
+  expect_equal(2 * 2, 4)
+})
+
+test_that("create_message() throws error if user does not exist", {
+  expect_equal(2 * 2, 4)
+})

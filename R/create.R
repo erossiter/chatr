@@ -182,6 +182,44 @@ create_chatroom_membership <- function (bearer_token,
 }
 
 
+#' Create a message
+#'
+#' @param bearer_token A string. The researcher's Auth Token found in Chatter online interface > API Credentials.
+#' @param user_id An integer. The unique ID for the user. Note that the user posting the message does not have to be a member of the chatroom.
+#' @param chatroom_id An integer. The unique ID for the chatroom.
+#' @param content A string.  The message's content.  Visible to all members of the chatroom.
+#'
+#' @return Returns ...
+#'
+#' @examples
+#'
+#' \dontrun{
+#' #create experiment, instruction, user, and chatroom first
+#' create_message(bearer_token = "<your-token-here>",
+#'                            user_id = 1,
+#'                            chatroom_id = 1,
+#'                            content = "hi")
+#' }
+#'
+#' @export
+create_message <- function (bearer_token,
+                            user_id,
+                            chatroom_id,
+                            content) {
+
+  data_list <- list("message" = list(
+    "user_id" = user_id,
+    "chatroom_id" = chatroom_id,
+    "content" = content
+  ))
+
+  out <- chatter_POST(data_list = data_list,
+                      bearer_token = bearer_token)
+
+  return_structure(out)
+}
+
+
 # Helper functions ----
 return_structure <- function (x) {
   structure(
