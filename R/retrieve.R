@@ -1,20 +1,19 @@
-#' Create an experiment
+#' Retrieve an experiment
 #'
 #' @param bearer_token A string. The researcher's Auth Token found in Chatter online interface > API Credentials.
-#' @param experiment_id asdf
+#' @param experiment_id A numeric. The unique ID for the experiment.
 #'
 #' @return Returns ...
 #'
 #' @examples
 #'
 #' \dontrun{
-#' create_experiment(bearer_token = "<your-token-here>",
-#'                   name = "My First Experiment")
+#' retrieve_experiment(bearer_token = "<your-token-here>")
 #' }
 #'
 #' @export
 retrieve_experiment <- function (bearer_token,
-                            experiment_id) {
+                                 experiment_id) {
 
   path <- paste0("/research/experiments/",
                  experiment_id,
@@ -23,194 +22,142 @@ retrieve_experiment <- function (bearer_token,
   out <- chatter_GET(bearer_token = bearer_token,
                      path = path)
 
-  structure(
-    list(
-      content = out$parsed,
-      path = out$path,
-      response = out$resp
-    ),
-    class = "chatr_class"
-  )
+  return_structure(out)
 }
 
-#' #' Create an instruction
-#' #'
-#' #' @param bearer_token A string. The researcher's Auth Token found in Chatter online interface > API Credentials.
-#' #' @param experiment_id An integer. The unique ID for the experiment.
-#' #' @param name A string. The instruction's name. Visible only to the researcher
-#' #' @param text A string.  The instruction's contents.  Visible to the user.  HTML compatible.
-#' #'
-#' #' @return Returns ...
-#' #'
-#' #' @examples
-#' #'
-#' #' \dontrun{
-#' #' create_instruction(bearer_token = "<your-token-here>",
-#' #'                    experiment_id = 1, # create experiment first
-#' #'                    name = "Instructions for My First Experiment",
-#' #'                    text = "Follow these instructions.")
-#' #' }
-#' #'
-#' #' @export
-#' create_instruction <- function (bearer_token,
-#'                                experiment_id,
-#'                                name,
-#'                                text) {
+#' Retrieve an instruction
 #'
-#'   data_list <- list("instruction" = list(
-#'     "experiment_id" = experiment_id,
-#'     "name" = name,
-#'     "text" = text
-#'   ))
+#' @param bearer_token A string. The researcher's Auth Token found in Chatter online interface > API Credentials.
+#' @param instruction_id A numeric. The unique ID for the instruction.
 #'
-#'   out <- chatter_POST(data_list = data_list,
-#'                       bearer_token = bearer_token,
-#'                       path = "/research/instructions.json")
+#' @return Returns ...
 #'
-#'   return_structure(out)
+#' @examples
+#'
+#' \dontrun{
+#' retrieve_instruction(bearer_token = "<your-token-here>")
 #' }
 #'
-#' #' Create a chatroom
-#' #'
-#' #' @param bearer_token A string. The researcher's Auth Token found in Chatter online interface > API Credentials.
-#' #' @param topic A string. Unique identifier for the chatroom. Only visible to researcher.
-#' #' @param min_duration A numeric.  The minimum time in seconds users must spend in the chatroom before the "Done" button is active.
-#' #' @param max_duration A numeric.  The maximum time in seconds users must spend in the chatroom before the "Done" button is active.
-#' #'
-#' #' @return Returns ...
-#' #'
-#' #' @examples
-#' #'
-#' #' \dontrun{
-#' #' create_chatroom(bearer_token = "<your-token-here>",
-#' #'                 topic = "My First Chatroom",
-#' #'                 min_duration = 30,
-#' #'                 max_duration = 600)
-#' #' }
-#' #'
-#' #' @export
-#' create_chatroom <- function (bearer_token,
-#'                                 topic,
-#'                                 min_duration,
-#'                                 max_duration) {
+#' @export
+retrieve_instruction <- function (bearer_token,
+                                  instruction_id) {
+
+  path <- paste0("/research/instructions/",
+                 instruction_id,
+                 ".json")
+
+  out <- chatter_GET(bearer_token = bearer_token,
+                     path = path)
+
+  return_structure(out)
+}
+
+#' Retrieve a chatroom
 #'
-#'   data_list <- list("chatroom" = list(
-#'     "topic" = topic,
-#'     "slug"= topic,
-#'     "min_duration" = min_duration,
-#'     "max_duration" = max_duration
-#'   ))
+#' @param bearer_token A string. The researcher's Auth Token found in Chatter online interface > API Credentials.
+#' @param chatroom_id A numeric. The unique ID for the chatroom.
 #'
-#'   out <- chatter_POST(data_list = data_list,
-#'                       bearer_token = bearer_token,
-#'                       path = "/research/chatrooms.json")
+#' @return Returns ...
 #'
-#'   return_structure(out)
+#' @examples
+#'
+#' \dontrun{
+#' retrieve_chatroom(bearer_token = "<your-token-here>")
 #' }
 #'
-#' #' Create a user
-#' #'
-#' #' @param bearer_token A string. The researcher's Auth Token found in Chatter online interface > API Credentials.
-#' #' @param username A string. Unique identifier for the user. Only visible to researcher.
-#' #'
-#' #' @return Returns ...
-#' #'
-#' #' @examples
-#' #'
-#' #' \dontrun{
-#' #' create_user(bearer_token = "<your-token-here>",
-#' #'             username = "My First User")
-#' #' }
-#' #'
-#' #' @export
-#' create_user <- function (bearer_token,
-#'                              username) {
+#' @export
+retrieve_chatroom <- function (bearer_token,
+                               chatroom_id) {
+
+  path <- paste0("/research/chatrooms/",
+                 chatroom_id,
+                 ".json")
+
+  out <- chatter_GET(bearer_token = bearer_token,
+                     path = path)
+
+  return_structure(out)
+}
+
+
+#' Retrieve a user
 #'
-#'   data_list <- list("user" = list(
-#'     "username" = username
-#'   ))
+#' @param bearer_token A string. The researcher's Auth Token found in Chatter online interface > API Credentials.
+#' @param user_id A numeric. The unique ID for the user.
 #'
-#'   out <- chatter_POST(data_list = data_list,
-#'                       bearer_token = bearer_token,
-#'                       path = "/research/users.json")
+#' @return Returns ...
 #'
-#'   return_structure(out)
+#' @examples
+#'
+#' \dontrun{
+#' retrieve_user(bearer_token = "<your-token-here>")
 #' }
 #'
+#' @export
+retrieve_user <- function (bearer_token,
+                               user_id) {
+
+  path <- paste0("/research/users/",
+                 user_id,
+                 ".json")
+
+  out <- chatter_GET(bearer_token = bearer_token,
+                     path = path)
+
+  return_structure(out)
+}
+
+#' Retrieve a chatroom membership
 #'
-#' #' Create a chatroom membership
-#' #'
-#' #' @param bearer_token A string. The researcher's Auth Token found in Chatter online interface > API Credentials.
-#' #' @param user_id An integer. The unique ID for the user.
-#' #' @param chatroom_id An integer. The unique ID for the chatroom.
-#' #' @param instruction_id An integer. The unique ID for the instruction.
-#' #'
-#' #' @return Returns ...
-#' #'
-#' #' @examples
-#' #'
-#' #' \dontrun{
-#' #' #create experiment, instruction, user, and chatroom first
-#' #' create_chatroom_membership(bearer_token = "<your-token-here>",
-#' #'                            user_id = 1,
-#' #'                            chatroom_id = 1,
-#' #'                            instruction_id = 1)
-#' #' }
-#' #'
-#' #' @export
-#' create_chatroom_membership <- function (bearer_token,
-#'                                         user_id,
-#'                                         chatroom_id,
-#'                                         instruction_id) {
+#' @param bearer_token A string. The researcher's Auth Token found in Chatter online interface > API Credentials.
+#' @param chatroom_membership_id A numeric. The unique ID for the chatroom membership.
 #'
-#'   data_list <- list("chatroom_membership" = list(
-#'     "user_id" = user_id,
-#'     "chatroom_id" = chatroom_id,
-#'     "instruction_id" = instruction_id
-#'   ))
+#' @return Returns ...
 #'
-#'   out <- chatter_POST(data_list = data_list,
-#'                       bearer_token = bearer_token,
-#'                       path = "/research/chatroom_memberships.json")
+#' @examples
 #'
-#'   return_structure(out)
+#' \dontrun{
+#' retrieve_chatroom_membership(bearer_token = "<your-token-here>")
 #' }
 #'
+#' @export
+retrieve_chatroom_membership <- function (bearer_token,
+                                          chatroom_membership_id) {
+
+  path <- paste0("/research/chatroom_memberships/",
+                 chatroom_membership_id,
+                 ".json")
+
+  out <- chatter_GET(bearer_token = bearer_token,
+                     path = path)
+
+  return_structure(out)
+}
+
+#' Retrieve a message
 #'
-#' #' Create a message
-#' #'
-#' #' @param bearer_token A string. The researcher's Auth Token found in Chatter online interface > API Credentials.
-#' #' @param user_id An integer. The unique ID for the user. Note that the user posting the message does not have to be a member of the chatroom.
-#' #' @param chatroom_id An integer. The unique ID for the chatroom.
-#' #' @param content A string.  The message's content.  Visible to all members of the chatroom.
-#' #'
-#' #' @return Returns ...
-#' #'
-#' #' @examples
-#' #'
-#' #' \dontrun{
-#' #' #create experiment, instruction, user, and chatroom first
-#' #' create_message(bearer_token = "<your-token-here>",
-#' #'                user_id = 1,
-#' #'                chatroom_id = 1,
-#' #'                content = "hi")
-#' #' }
-#' #'
-#' #' @export
-#' create_message <- function (bearer_token,
-#'                             user_id,
-#'                             chatroom_id,
-#'                             content) {
+#' @param bearer_token A string. The researcher's Auth Token found in Chatter online interface > API Credentials.
+#' @param message_id A numeric. The unique ID for the message.
 #'
-#'   data_list <- list("message" = list(
-#'     "user_id" = user_id,
-#'     "chatroom_id" = chatroom_id,
-#'     "content" = content
-#'   ))
+#' @return Returns ...
 #'
-#'   out <- chatter_POST(data_list = data_list,
-#'                       bearer_token = bearer_token,
-#'                       path = "/research/messages.json")
+#' @examples
 #'
-#'   return_structure(out)
+#' \dontrun{
+#' retrieve_message(bearer_token = "<your-token-here>")
 #' }
+#'
+#' @export
+retrieve_message<- function (bearer_token,
+                                          message_id) {
+
+  path <- paste0("/research/messages/",
+                 message_id,
+                 ".json")
+
+  out <- chatter_GET(bearer_token = bearer_token,
+                     path = path)
+
+  return_structure(out)
+}
+
