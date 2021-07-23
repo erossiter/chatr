@@ -32,6 +32,9 @@ delete_experiment <- function (bearer_token,
 #'
 #' @return Returns ...
 #'
+#' @note Note you need to delete any chatroom memberships that contain the instruction
+#' before you can successfully delete the instruction.
+#'
 #' @examples
 #'
 #' \dontrun{

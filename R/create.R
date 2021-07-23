@@ -39,7 +39,7 @@ create_experiment <- function (bearer_token,
 #' Create an instruction
 #'
 #' @param bearer_token A string. The researcher's Auth Token found in Chatter online interface > API Credentials.
-#' @param experiment_id An integer. The unique ID for the experiment.
+#' @param experiment_id A numeric. The unique ID for the experiment.
 #' @param name A string. The instruction's name. Visible only to the researcher
 #' @param text A string.  The instruction's contents.  Visible to the user.  HTML compatible.
 #'
@@ -144,9 +144,9 @@ create_user <- function (bearer_token,
 #' Create a chatroom membership
 #'
 #' @param bearer_token A string. The researcher's Auth Token found in Chatter online interface > API Credentials.
-#' @param user_id An integer. The unique ID for the user.
-#' @param chatroom_id An integer. The unique ID for the chatroom.
-#' @param instruction_id An integer. The unique ID for the instruction.
+#' @param user_id A numeric. The unique ID for the user.
+#' @param chatroom_id A numeric. The unique ID for the chatroom.
+#' @param instruction_id A numeric. The unique ID for the instruction.
 #'
 #' @return Returns ...
 #'
@@ -183,8 +183,8 @@ create_chatroom_membership <- function (bearer_token,
 #' Create a message
 #'
 #' @param bearer_token A string. The researcher's Auth Token found in Chatter online interface > API Credentials.
-#' @param user_id An integer. The unique ID for the user. Note that the user posting the message does not have to be a member of the chatroom.
-#' @param chatroom_id An integer. The unique ID for the chatroom.
+#' @param user_id A numeric. The unique ID for the user. Note that the user posting the message does not have to be a member of the chatroom.
+#' @param chatroom_id A numeric. The unique ID for the chatroom.
 #' @param content A string.  The message's content.  Visible to all members of the chatroom.
 #'
 #' @return Returns ...

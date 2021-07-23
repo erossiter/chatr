@@ -9,11 +9,11 @@ create_chatroom_membership(bearer_token, user_id, chatroom_id, instruction_id)
 \arguments{
 \item{bearer_token}{A string. The researcher's Auth Token found in Chatter online interface > API Credentials.}
 
-\item{user_id}{An integer. The unique ID for the user.}
+\item{user_id}{A numeric. The unique ID for the user.}
 
-\item{chatroom_id}{An integer. The unique ID for the chatroom.}
+\item{chatroom_id}{A numeric. The unique ID for the chatroom.}
 
-\item{instruction_id}{An integer. The unique ID for the instruction.}
+\item{instruction_id}{A numeric. The unique ID for the instruction.}
 }
 \value{
 Returns ...

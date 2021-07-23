@@ -84,6 +84,30 @@ chatter_POST <- function (data_list,
 }
 
 #' @keywords internal
+chatter_PUT <- function (data_list,
+                          bearer_token,
+                          path) {
+
+  setup <- call_setup(bearer_token, path)
+
+  # transform R list to JSON
+  json <- jsonlite::toJSON(data_list, auto_unbox = T)
+
+  resp <- httr::PUT(url = setup$url,
+                     body = json,
+                     encode = "raw",
+                     setup$headers,
+                     setup$content,
+                     setup$ua)
+
+  parsed <- check_resp(resp)
+
+  return(list(parsed = parsed,
+              path = path,
+              resp = resp))
+}
+
+#' @keywords internal
 chatter_GET <- function (bearer_token,
                          path) {
 
@@ -118,3 +142,6 @@ chatter_DELETE <- function (bearer_token,
               path = path,
               resp = resp))
 }
+
+
+

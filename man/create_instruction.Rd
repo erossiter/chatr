@@ -9,7 +9,7 @@ create_instruction(bearer_token, experiment_id, name, text)
 \arguments{
 \item{bearer_token}{A string. The researcher's Auth Token found in Chatter online interface > API Credentials.}
 
-\item{experiment_id}{An integer. The unique ID for the experiment.}
+\item{experiment_id}{A numeric. The unique ID for the experiment.}
 
 \item{name}{A string. The instruction's name. Visible only to the researcher}
 
