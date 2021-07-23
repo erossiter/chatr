@@ -2,14 +2,14 @@
 % Please edit documentation in R/create.R
 \name{create_chatroom}
 \alias{create_chatroom}
-\title{Create an chatroom}
+\title{Create a chatroom}
 \usage{
 create_chatroom(bearer_token, topic, min_duration, max_duration)
 }
 \arguments{
 \item{bearer_token}{A string. The researcher's Auth Token found in Chatter online interface > API Credentials.}
 
-\item{topic}{A string. Unique name for the chatroom.}
+\item{topic}{A string. Unique identifier for the chatroom. Only visible to researcher.}
 
 \item{min_duration}{A numeric.  The minimum time in seconds users must spend in the chatroom before the "Done" button is active.}
 
@@ -19,7 +19,7 @@ create_chatroom(bearer_token, topic, min_duration, max_duration)
 Returns ...
 }
 \description{
-Create an chatroom
+Create a chatroom
 }
 \examples{
 

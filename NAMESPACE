@@ -3,3 +3,4 @@
 export(create_chatroom)
 export(create_experiment)
 export(create_instruction)
+export(create_user)

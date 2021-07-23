@@ -25,7 +25,7 @@ Create an instruction
 
 \dontrun{
 create_instruction(bearer_token = "<your-token-here>",
-                    experiment_id = 1,
+                    experiment_id = 1, #create experiment first
                     name = "Instructions for My First Experiment",
                     text = "Follow these instructions.")
 }

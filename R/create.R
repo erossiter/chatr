@@ -55,7 +55,7 @@ create_experiment <- function (bearer_token,
 #'
 #' \dontrun{
 #' create_instruction(bearer_token = "<your-token-here>",
-#'                     experiment_id = 1,
+#'                     experiment_id = 1, #create experiment first
 #'                     name = "Instructions for My First Experiment",
 #'                     text = "Follow these instructions.")
 #' }
@@ -78,10 +78,10 @@ create_instruction <- function (bearer_token,
   return_structure(out)
 }
 
-#' Create an chatroom
+#' Create a chatroom
 #'
 #' @param bearer_token A string. The researcher's Auth Token found in Chatter online interface > API Credentials.
-#' @param topic A string. Unique name for the chatroom.
+#' @param topic A string. Unique identifier for the chatroom. Only visible to researcher.
 #' @param min_duration A numeric.  The minimum time in seconds users must spend in the chatroom before the "Done" button is active.
 #' @param max_duration A numeric.  The maximum time in seconds users must spend in the chatroom before the "Done" button is active.
 #'
@@ -107,6 +107,34 @@ create_chatroom <- function (bearer_token,
     "slug"= topic,
     "min_duration" = min_duration,
     "max_duration" = max_duration
+  ))
+
+  out <- chatter_POST(data_list = data_list,
+                      bearer_token = bearer_token)
+
+  return_structure(out)
+}
+
+#' Create a user
+#'
+#' @param bearer_token A string. The researcher's Auth Token found in Chatter online interface > API Credentials.
+#' @param username A string. Unique identifier for the user. Only visible to researcher.
+#'
+#' @return Returns ...
+#'
+#' @examples
+#'
+#' \dontrun{
+#' create_user(bearer_token = "<your-token-here>",
+#'             username = "My First User")
+#' }
+#'
+#' @export
+create_user <- function (bearer_token,
+                             username) {
+
+  data_list <- list("user" = list(
+    "username" = username
   ))
 
   out <- chatter_POST(data_list = data_list,

@@ -21,3 +21,7 @@ test_that("create_chatroom() works", {
 test_that("create_chatroom() throws error if chatroom name is not unique", {
   expect_equal(2 * 2, 4)
 })
+
+test_that("create_user() works", {
+  expect_equal(2 * 2, 4)
+})
