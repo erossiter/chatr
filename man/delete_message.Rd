@@ -4,11 +4,9 @@
 \alias{delete_message}
 \title{Delete a message}
 \usage{
-delete_message(bearer_token, message_id)
+delete_message(message_id)
 }
 \arguments{
-\item{bearer_token}{A string. The researcher's Auth Token found in Chatter online interface > API Credentials.}
-
 \item{message_id}{A numeric. The unique ID for the message.}
 }
 \value{
@@ -22,7 +20,7 @@ Delete a message
 \examples{
 
 \dontrun{
-delete_message(bearer_token = "<your-token-here>")
+delete_message(message_id = 1)
 }
 
 }

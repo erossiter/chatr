@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta http-equiv='Content-Type' content='text/html; charset=UTF-8'/>
+  <script type='text/javascript' src='https://s3.amazonaws.com/mturk-public/externalHIT_v1.js'></script>
+ </head>
+ <body>
+  <form name='mturk_form' method='post' id='mturk_form' action='https://www.mturk.com/mturk/externalSubmit'>
+  <input type='hidden' value='' name='assignmentId' id='assignmentId'/>
+  <h1>Instructions</h1>
+  <h3>This HIT is a brief survey.</h3>
+    <ul>
+      <li>Select the link below to complete a survey on demographics and political opinions.</li>
+      <li>At the end of the survey, you will receive a code to paste into the box below to be compensated. Make sure to leave this window open as you complete the survey.</li>
+    </ul>
+  <h3>Taking this survey may qualify you for an additional HIT ($2 with $1 bonus).</h3>  
+    <ul>
+      <li>If you are qualified, you need to return <b><i>promptly</i></b> at TIME HERE to complete the follow up HIT.</li>
+      <li>The follow up HIT will ask you to have an 8 minute written, online discussion with another Worker or write a short essay.</li>
+      <li>The follow up HIT will be titled <u>Follow up HIT: Conversation/short essay</u></li>
+    </ul>
+  <table class="table table-condensed table-bordered">
+    <colgroup>
+      <col class="col-xs-4 col-md-4" />
+      <col class="col-xs-8 col-md-8" />
+    </colgroup>
+    <tbody>
+      <tr>
+        <td><label>Survey link:</label></td>
+        <td><a background-color:="" class="survey-link ng-binding" color:="" cursor:="" font-size:="" helvetica="" href="URL HERE" outline-offset:="" outline:="" qualtrics="" style="font-family: " target="_blank" text-align:="">URL HERE</a></td>
+      </tr>
+    </tbody>
+  </table>  
+  <div class="form-group">
+    <label for="surveycode">Provide the survey code here:</label>
+    <input class="form-control" id="completioncode" name="completioncode" placeholder="e.g. 123456" required="" type="text" />
+  </div>
+  <p><input type='submit' id='submitButton' value='Submit' /></p>
+  </form>
+  <script language='Javascript'>turkSetAssignmentID();</script>
+ </body></html>
+ 

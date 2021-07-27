@@ -4,12 +4,10 @@
 \alias{create_user}
 \title{Create a user}
 \usage{
-create_user(bearer_token, username)
+create_user(username)
 }
 \arguments{
-\item{bearer_token}{A string. The researcher's Auth Token found in Chatter online interface > API Credentials.}
-
-\item{username}{A string. Unique identifier for the user. Only visible to researcher.}
+\item{username}{A string. Unique identifier for the user. The name they would use to log in to Chatter (optional).}
 }
 \value{
 Returns a list of four elements.  \code{status} is a string indicating whether the API call was successful or not,
@@ -22,8 +20,7 @@ Create a user
 \examples{
 
 \dontrun{
-create_user(bearer_token = "<your-token-here>",
-            username = "My First User")
+create_user(username = "My First User")
 }
 
 }

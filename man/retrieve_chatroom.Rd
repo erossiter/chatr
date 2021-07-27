@@ -4,11 +4,9 @@
 \alias{retrieve_chatroom}
 \title{Retrieve a chatroom}
 \usage{
-retrieve_chatroom(bearer_token, chatroom_id)
+retrieve_chatroom(chatroom_id)
 }
 \arguments{
-\item{bearer_token}{A string. The researcher's Auth Token found in Chatter online interface > API Credentials.}
-
 \item{chatroom_id}{A numeric. The unique ID for the chatroom.}
 }
 \value{
@@ -22,7 +20,7 @@ Retrieve a chatroom
 \examples{
 
 \dontrun{
-retrieve_chatroom(bearer_token = "<your-token-here>")
+retrieve_chatroom(chatroom_id = 1)
 }
 
 }

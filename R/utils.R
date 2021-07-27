@@ -1,3 +1,11 @@
+get_bearer_token <- function () {
+  bearer_token <- Sys.getenv("BEARER_TOKEN")
+  if (bearer_token == "") {
+    stop("ERROR: Missing Bearer Token. Set as an environment variable.")
+  }
+  return(bearer_token)
+}
+
 return_structure <- function (x, delete = F) {
 
   if (delete) {

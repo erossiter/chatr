@@ -4,11 +4,9 @@
 \alias{retrieve_user}
 \title{Retrieve a user}
 \usage{
-retrieve_user(bearer_token, user_id)
+retrieve_user(user_id)
 }
 \arguments{
-\item{bearer_token}{A string. The researcher's Auth Token found in Chatter online interface > API Credentials.}
-
 \item{user_id}{A numeric. The unique ID for the user.}
 }
 \value{
@@ -22,7 +20,7 @@ Retrieve a user
 \examples{
 
 \dontrun{
-retrieve_user(bearer_token = "<your-token-here>")
+retrieve_user(user_id = 1)
 }
 
 }

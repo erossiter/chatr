@@ -4,11 +4,9 @@
 \alias{delete_chatroom}
 \title{Delete a chatroom}
 \usage{
-delete_chatroom(bearer_token, chatroom_id)
+delete_chatroom(chatroom_id)
 }
 \arguments{
-\item{bearer_token}{A string. The researcher's Auth Token found in Chatter online interface > API Credentials.}
-
 \item{chatroom_id}{A numeric. The unique ID for the chatroom.}
 }
 \value{
@@ -22,7 +20,7 @@ Delete a chatroom
 \examples{
 
 \dontrun{
-delete_chatroom(bearer_token = "<your-token-here>")
+delete_chatroom(chatroom_id = 1)
 }
 
 }

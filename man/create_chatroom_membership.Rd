@@ -5,7 +5,6 @@
 \title{Create a chatroom membership}
 \usage{
 create_chatroom_membership(
-  bearer_token,
   user_id,
   chatroom_id,
   instruction_id,
@@ -13,8 +12,6 @@ create_chatroom_membership(
 )
 }
 \arguments{
-\item{bearer_token}{A string. The researcher's Auth Token found in Chatter online interface > API Credentials.}
-
 \item{user_id}{A numeric. The unique ID for the user.}
 
 \item{chatroom_id}{A numeric. The unique ID for the chatroom.}
@@ -35,8 +32,7 @@ Create a chatroom membership
 
 \dontrun{
 #create experiment, instruction, user, and chatroom first
-create_chatroom_membership(bearer_token = "<your-token-here>",
-                           user_id = 1,
+create_chatroom_membership(user_id = 1,
                            chatroom_id = 1,
                            instruction_id = 1)
 }

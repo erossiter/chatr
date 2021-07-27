@@ -16,11 +16,11 @@ up for a researcher account. You’ll receive an email when your account
 is approved.
 
 Log in and find your API credentials. You’ll need the Token for any
-calls you make to Chatter with `chatr`. I recommend saving it as a
+calls you make to Chatter with `chatr`. Set it as an environment
 variable.
 
 ``` r
-bearer_token <- "your token here"
+Sys.setenv(BEARER_TOKEN = 'your token here')
 ```
 
 ## Installation
@@ -54,27 +54,21 @@ through a basic example here.
 ### Create an experiment
 
 First, you create an experiment with the `create_experiment` function.
-All that is required is a name for the experiment, but here I also
-supply a link users are redirected to when clicking the “Done” button
-among other arguments.
+All that is required is a name for the experiment.
 
 ``` r
-my_experiment <- create_experiment(bearer_token = bearer_token,
-                                   name = "My First Experiment",
-                                   post_survey_link = "http://erossiter.com/",
-                                   moderator_message = "Welcome to the chat!",
-                                   language = "English")
+my_experiment <- create_experiment(name = "My First Experiment")
 my_experiment
 #> <Chatter /research/experiments.json>
 #> Status: success
 #> Error: none
 #> 'data.frame':    1 obs. of  8 variables:
-#>  $ id               : int 117
+#>  $ id               : int 169
 #>  $ name             : chr "My First Experiment"
-#>  $ created_at       : chr "2021-07-23T21:47:29.641Z"
-#>  $ updated_at       : chr "2021-07-23T21:47:29.641Z"
-#>  $ post_survey_link : chr "http://erossiter.com/"
-#>  $ moderator_message: chr "Welcome to the chat!"
+#>  $ created_at       : chr "2021-07-27T21:16:23.318Z"
+#>  $ updated_at       : chr "2021-07-27T21:16:23.318Z"
+#>  $ post_survey_link : logi NA
+#>  $ moderator_message: logi NA
 #>  $ language         : chr "English"
 #>  $ researcher_id    : int 4
 ```
@@ -83,24 +77,23 @@ We’ll note the experiment id. We’ll need it moving forward.
 
 ``` r
 (experiment_id <- my_experiment$content$id)
-#> [1] 117
+#> [1] 169
 ```
 
 ### Create instructions
 
 Next, we create instructions for our users. For this experiment, I have
 two unique instructions. Users will be assigned to either the treatment
-or control instructions. Both as associated with the experiment we just
-created via the experiment id.
+or control instructions. Note that we associate these instructions with
+the experiment we just created via the `experiment_id` argument The
+`text` argument is what users see.
 
 ``` r
-instruction_t <- create_instruction(bearer_token = bearer_token,
-                   experiment_id = experiment_id,
+instruction_t <- create_instruction(experiment_id = experiment_id,
                    name = "Treatment",
                    text = "Please talk about X.")
 
-instruction_c <- create_instruction(bearer_token = bearer_token,
-                   experiment_id = experiment_id,
+instruction_c <- create_instruction(experiment_id = experiment_id,
                    name = "Control",
                    text = "Please talk about Y.")
 ```
@@ -109,19 +102,22 @@ We’ll note the instruction ids as well.
 
 ``` r
 (treatment_id <- instruction_t$content$id)
-#> [1] 3537
+#> [1] 3606
 (control_id <- instruction_c$content$id)
-#> [1] 3538
+#> [1] 3607
 ```
 
 ### Create chatrooms
 
-Next, let’s create ten chatrooms.
+Next, let’s create ten chatrooms. The `topic` argument is the unique
+name for the chatroom. Note that users assigned to each chatroom (a step
+we’ll complete momentarily) can see this name. The `min_duration`
+argument indicates how long participants must stay in the chatroom in
+seconds.
 
 ``` r
 for(i in 1:10){
-  create_chatroom(bearer_token = bearer_token,
-                topic = paste0("chatroom", i),
+  create_chatroom(topic = paste0("chatroom", i),
                 min_duration = 180)
 }
 ```
@@ -132,19 +128,19 @@ interested in the `content` element right now holding a dataframe with
 information about our chatrooms.
 
 ``` r
-my_chatrooms <- list_chatrooms(bearer_token = bearer_token)
+my_chatrooms <- list_chatrooms()
 my_chatrooms$content
 #>      id      topic       slug               created_at               updated_at
-#> 1  2641  chatroom1  chatroom1 2021-07-23T21:47:29.892Z 2021-07-23T21:47:29.892Z
-#> 2  2642  chatroom2  chatroom2 2021-07-23T21:47:29.954Z 2021-07-23T21:47:29.954Z
-#> 3  2643  chatroom3  chatroom3 2021-07-23T21:47:30.023Z 2021-07-23T21:47:30.023Z
-#> 4  2644  chatroom4  chatroom4 2021-07-23T21:47:30.086Z 2021-07-23T21:47:30.086Z
-#> 5  2645  chatroom5  chatroom5 2021-07-23T21:47:30.156Z 2021-07-23T21:47:30.156Z
-#> 6  2646  chatroom6  chatroom6 2021-07-23T21:47:30.218Z 2021-07-23T21:47:30.218Z
-#> 7  2647  chatroom7  chatroom7 2021-07-23T21:47:30.283Z 2021-07-23T21:47:30.283Z
-#> 8  2648  chatroom8  chatroom8 2021-07-23T21:47:30.345Z 2021-07-23T21:47:30.345Z
-#> 9  2649  chatroom9  chatroom9 2021-07-23T21:47:30.413Z 2021-07-23T21:47:30.413Z
-#> 10 2650 chatroom10 chatroom10 2021-07-23T21:47:30.475Z 2021-07-23T21:47:30.475Z
+#> 1  3298  chatroom1  chatroom1 2021-07-27T21:16:23.574Z 2021-07-27T21:16:23.574Z
+#> 2  3299  chatroom2  chatroom2 2021-07-27T21:16:23.640Z 2021-07-27T21:16:23.640Z
+#> 3  3300  chatroom3  chatroom3 2021-07-27T21:16:23.704Z 2021-07-27T21:16:23.704Z
+#> 4  3301  chatroom4  chatroom4 2021-07-27T21:16:23.771Z 2021-07-27T21:16:23.771Z
+#> 5  3302  chatroom5  chatroom5 2021-07-27T21:16:23.837Z 2021-07-27T21:16:23.837Z
+#> 6  3303  chatroom6  chatroom6 2021-07-27T21:16:23.908Z 2021-07-27T21:16:23.908Z
+#> 7  3304  chatroom7  chatroom7 2021-07-27T21:16:23.973Z 2021-07-27T21:16:23.973Z
+#> 8  3305  chatroom8  chatroom8 2021-07-27T21:16:24.039Z 2021-07-27T21:16:24.039Z
+#> 9  3306  chatroom9  chatroom9 2021-07-27T21:16:24.104Z 2021-07-27T21:16:24.104Z
+#> 10 3307 chatroom10 chatroom10 2021-07-27T21:16:24.172Z 2021-07-27T21:16:24.172Z
 #>    min_duration max_duration finish_time researcher_id
 #> 1           180           NA          NA             4
 #> 2           180           NA          NA             4
@@ -162,85 +158,57 @@ We’ll note the chatroom ids.
 
 ``` r
 (chatroom_id <- my_chatrooms$content$id)
-#>  [1] 2641 2642 2643 2644 2645 2646 2647 2648 2649 2650
+#>  [1] 3298 3299 3300 3301 3302 3303 3304 3305 3306 3307
 ```
 
 ### Create users
 
-Next we’ll create 20 users and check them out.
+Next we’ll create 20 users and check them out. The `username` argument
+is the unique name given to each user. This is the name a user would use
+to log in to Chatter\[1\] and is the default display name\[2\] that
+others in the user’s chatroom see.
 
 ``` r
 for(i in 1:20){
-  create_user(bearer_token = bearer_token,
-              username = paste0("user", i))
+  create_user(username = paste0("user", i))
 }
 ```
 
 ``` r
-my_users <- list_users(bearer_token)
-my_users$content
-#>      id  username               created_at               updated_at role
-#> 1  3917 Moderator 2021-07-23T21:12:40.123Z 2021-07-23T21:12:40.123Z   NA
-#> 2  3918     user1 2021-07-23T21:47:30.623Z 2021-07-23T21:47:30.623Z   NA
-#> 3  3919     user2 2021-07-23T21:47:30.683Z 2021-07-23T21:47:30.683Z   NA
-#> 4  3920     user3 2021-07-23T21:47:30.744Z 2021-07-23T21:47:30.744Z   NA
-#> 5  3921     user4 2021-07-23T21:47:30.804Z 2021-07-23T21:47:30.804Z   NA
-#> 6  3922     user5 2021-07-23T21:47:30.867Z 2021-07-23T21:47:30.867Z   NA
-#> 7  3923     user6 2021-07-23T21:47:30.926Z 2021-07-23T21:47:30.926Z   NA
-#> 8  3924     user7 2021-07-23T21:47:30.987Z 2021-07-23T21:47:30.987Z   NA
-#> 9  3925     user8 2021-07-23T21:47:31.047Z 2021-07-23T21:47:31.047Z   NA
-#> 10 3926     user9 2021-07-23T21:47:31.107Z 2021-07-23T21:47:31.107Z   NA
-#> 11 3927    user10 2021-07-23T21:47:31.169Z 2021-07-23T21:47:31.169Z   NA
-#> 12 3928    user11 2021-07-23T21:47:31.248Z 2021-07-23T21:47:31.248Z   NA
-#> 13 3929    user12 2021-07-23T21:47:31.309Z 2021-07-23T21:47:31.309Z   NA
-#> 14 3930    user13 2021-07-23T21:47:31.376Z 2021-07-23T21:47:31.376Z   NA
-#> 15 3931    user14 2021-07-23T21:47:31.436Z 2021-07-23T21:47:31.436Z   NA
-#> 16 3932    user15 2021-07-23T21:47:31.500Z 2021-07-23T21:47:31.500Z   NA
-#> 17 3933    user16 2021-07-23T21:47:31.562Z 2021-07-23T21:47:31.562Z   NA
-#> 18 3934    user17 2021-07-23T21:47:31.625Z 2021-07-23T21:47:31.625Z   NA
-#> 19 3935    user18 2021-07-23T21:47:31.685Z 2021-07-23T21:47:31.685Z   NA
-#> 20 3936    user19 2021-07-23T21:47:31.747Z 2021-07-23T21:47:31.747Z   NA
-#>    signed_in experiment_finished_at researcher_id
-#> 1         NA                     NA             4
-#> 2         NA                     NA             4
-#> 3         NA                     NA             4
-#> 4         NA                     NA             4
-#> 5         NA                     NA             4
-#> 6         NA                     NA             4
-#> 7         NA                     NA             4
-#> 8         NA                     NA             4
-#> 9         NA                     NA             4
-#> 10        NA                     NA             4
-#> 11        NA                     NA             4
-#> 12        NA                     NA             4
-#> 13        NA                     NA             4
-#> 14        NA                     NA             4
-#> 15        NA                     NA             4
-#> 16        NA                     NA             4
-#> 17        NA                     NA             4
-#> 18        NA                     NA             4
-#> 19        NA                     NA             4
-#> 20        NA                     NA             4
+my_users <- list_users()
+head(my_users$content)
+#>     id username               created_at               updated_at role
+#> 1 5135    user1 2021-07-27T21:16:24.324Z 2021-07-27T21:16:24.324Z   NA
+#> 2 5136    user2 2021-07-27T21:16:24.383Z 2021-07-27T21:16:24.383Z   NA
+#> 3 5137    user3 2021-07-27T21:16:24.447Z 2021-07-27T21:16:24.447Z   NA
+#> 4 5138    user4 2021-07-27T21:16:24.515Z 2021-07-27T21:16:24.515Z   NA
+#> 5 5139    user5 2021-07-27T21:16:24.578Z 2021-07-27T21:16:24.578Z   NA
+#> 6 5140    user6 2021-07-27T21:16:24.641Z 2021-07-27T21:16:24.641Z   NA
+#>   signed_in experiment_finished_at researcher_id
+#> 1        NA                     NA             4
+#> 2        NA                     NA             4
+#> 3        NA                     NA             4
+#> 4        NA                     NA             4
+#> 5        NA                     NA             4
+#> 6        NA                     NA             4
 ```
 
-And, we’ll again note the ids.
+We’ll again note the ids.
 
 ``` r
 (user_id <- my_users$content$id)
-#>  [1] 3917 3918 3919 3920 3921 3922 3923 3924 3925 3926 3927 3928 3929 3930 3931
-#> [16] 3932 3933 3934 3935 3936
+#>  [1] 5135 5136 5137 5138 5139 5140 5141 5142 5143 5144 5145 5146 5147 5148 5149
+#> [16] 5150 5151 5152 5153 5154
 ```
 
 ### Create chatroom memberships
 
-Finally, we need to tie it all together. We need to create chatroom
-memberships, and we do so by assigning users and instructions to
-chatrooms. To help visualize what we’re doing ahead of time, let’s
-create a dataframe where each row is a user, and we note which chatroom
-they’re assigned to and which instruction they should see.
-
-We’ll also give each user an optional display name that others in the
-chatroom see alongside the user’s messages.
+Finally, we need to tie it all together. This is where the magic
+happens\! We need to create chatroom memberships, and we do so by
+assigning instructions and chatroom to users. To help visualize what
+we’re doing ahead of time, let’s create a dataframe where each row is
+a user, and we note which chatroom they’re assigned to and which
+instruction they should see.
 
 ``` r
 # each row is a user
@@ -252,104 +220,420 @@ exp$chatroom_id <- rep(chatroom_id, each = 2)
 # the first five chatrooms are in the treatment,
 # the last five are in the control
 exp$instruction_id <- rep(c(treatment_id, control_id), each = 10)
-
-# display names
-exp$display_name <- stringi::stri_rand_strings(20, 5)
 ```
 
-Finally, we tell Chatter.
+Finally, we tell Chatter with the `create_chatroom_memberhip` function.
+The required arguments are the IDs for the user, the instruction they
+should see, and the chatroom they should be in.
 
 ``` r
 for(i in 1:nrow(exp)){
-  create_chatroom_membership(bearer_token = bearer_token,
-                           user_id = exp$user_id[i],
-                           chatroom_id = exp$chatroom_id[i],
-                           instruction_id = exp$instruction_id[i],
-                           display_name = exp$display_name[i])
+  create_chatroom_membership(user_id = exp$user_id[i],
+                             chatroom_id = exp$chatroom_id[i],
+                             instruction_id = exp$instruction_id[i])
 }
 ```
 
-``` r
-my_chatroom_memberships <- list_chatroom_memberships(bearer_token)
-my_chatroom_memberships$content
-#>      id user_id chatroom_id               created_at               updated_at
-#> 1  3798    3926        2645 2021-07-23T21:47:32.582Z 2021-07-23T21:47:32.582Z
-#> 2  3797    3925        2645 2021-07-23T21:47:32.512Z 2021-07-23T21:47:32.512Z
-#> 3  3796    3924        2644 2021-07-23T21:47:32.440Z 2021-07-23T21:47:32.440Z
-#> 4  3795    3923        2644 2021-07-23T21:47:32.369Z 2021-07-23T21:47:32.369Z
-#> 5  3794    3922        2643 2021-07-23T21:47:32.302Z 2021-07-23T21:47:32.302Z
-#> 6  3793    3921        2643 2021-07-23T21:47:32.232Z 2021-07-23T21:47:32.232Z
-#> 7  3792    3920        2642 2021-07-23T21:47:32.162Z 2021-07-23T21:47:32.162Z
-#> 8  3791    3919        2642 2021-07-23T21:47:32.098Z 2021-07-23T21:47:32.098Z
-#> 9  3790    3918        2641 2021-07-23T21:47:32.029Z 2021-07-23T21:47:32.029Z
-#> 10 3789    3917        2641 2021-07-23T21:47:31.965Z 2021-07-23T21:47:31.965Z
-#> 11 3808    3936        2650 2021-07-23T21:47:33.263Z 2021-07-23T21:47:33.263Z
-#> 12 3807    3935        2650 2021-07-23T21:47:33.195Z 2021-07-23T21:47:33.195Z
-#> 13 3806    3934        2649 2021-07-23T21:47:33.129Z 2021-07-23T21:47:33.129Z
-#> 14 3805    3933        2649 2021-07-23T21:47:33.063Z 2021-07-23T21:47:33.063Z
-#> 15 3804    3932        2648 2021-07-23T21:47:32.997Z 2021-07-23T21:47:32.997Z
-#> 16 3803    3931        2648 2021-07-23T21:47:32.917Z 2021-07-23T21:47:32.917Z
-#> 17 3802    3930        2647 2021-07-23T21:47:32.848Z 2021-07-23T21:47:32.848Z
-#> 18 3801    3929        2647 2021-07-23T21:47:32.780Z 2021-07-23T21:47:32.780Z
-#> 19 3800    3928        2646 2021-07-23T21:47:32.716Z 2021-07-23T21:47:32.716Z
-#> 20 3799    3927        2646 2021-07-23T21:47:32.648Z 2021-07-23T21:47:32.648Z
-#>    display_name instruction_id
-#> 1         2kaKt           3537
-#> 2         MpPRk           3537
-#> 3         ECEaA           3537
-#> 4         f0kzs           3537
-#> 5         W7ikB           3537
-#> 6         CcBp5           3537
-#> 7         orRgb           3537
-#> 8         M6Uq4           3537
-#> 9         iJSVU           3537
-#> 10        ZrQgI           3537
-#> 11        TYtnL           3538
-#> 12        wSsH8           3538
-#> 13        4eev4           3538
-#> 14        yvnMi           3538
-#> 15        yvXvR           3538
-#> 16        BF4l9           3538
-#> 17        lbjeN           3538
-#> 18        ixpaL           3538
-#> 19        iH4Gr           3538
-#> 20        Naahs           3538
-```
+At this point, you should be able to [log in to
+Chatter](http://chatter-washu.herokuapp.com/login) as any of the users
+you created.
 
 ### Other functionality
+
+`chatr` has the following additional functionality. See package
+documentation for more information.
 
   - `create` create an entry
   - `update` update field(s) for an entry
   - `retrieve` retrieve an entry
   - `list` list all entries
   - `delete` delete an entry (you can delete this example with the
-    following code)
+    following code, note the order of deletion is opposite the order of
+    creation due to the dependencies of)
 
 <!-- end list -->
 
 ``` r
-for (i in 1:length(chatroom_id)) {
-  try(delete_chatroom(bearer_token, chatroom_id[i]))
-}
-for (i in 1:length(user_id)) {
-  try(delete_user(bearer_token, user_id[i]))
-}
 for (i in 1:length(my_chatroom_memberships$content$id)) {
-  try(delete_chatroom_membership(bearer_token,
-      my_chatroom_memberships$content$id[i]))
+  delete_chatroom_membership(my_chatroom_memberships$content$id[i])
 }
-try(delete_instruction(bearer_token, instruction_id = treatment_id))
-try(delete_instruction(bearer_token, instruction_id = control_id))
-try(delete_experiment(bearer_token, experiment_id))
+
+for (i in 1:length(chatroom_id)) {
+  delete_chatroom(chatroom_id[i])
+}
+
+for (i in 1:length(user_id)) {
+  delete_user(user_id[i])
+}
+
+delete_instruction(treatment_id)
+delete_instruction(control_id)
+delete_experiment(experiment_id)
 ```
 
-# In practice
+## Full Example with `pyMTurkR` and `chatr`
+
+Chatter experiments can be implemented with Amazon Mechanical Turk
+participants. Here I’ll walk though a short example using the
+[`pyMTurkR`](https://github.com/cloudyr/pyMTurkR) package to make calls
+to the MTurk API. First, follow all of the instructions on the
+[`pyMTurkR` Github repo](https://github.com/cloudyr/pyMTurkR) to install
+it.
+
+I recommend playing in the MTurk Requester Sandbox. Recall, to test
+you’re in the Sandbox, your account balance should be $10,000.00
+
+``` r
+pyMTurkR::AccountBalance()
+#> Balance: $10000.00
+#> [1] "10000.00"
+```
+
+### Recruitment HIT
+
+One way to conduct a Chatter experiment is to recruit participants, say
+in the morning, and invite them back, say in the afternoon, for the
+experiment. On MTurk, one way to do this is by using two HITs.
+
+Here’s an example of an initial recruitment HIT. I first create three
+qualifications for the HIT—participants must have a HIT approval rating
+about 95%, they must have completed 1000 HITS, and they must be verified
+as living in the US.
+
+``` r
+qual_approvehits <- list(QualificationTypeId = '000000000000000000L0',
+                         Comparator = 'GreaterThanOrEqualTo',
+                         IntegerValues = 95,
+                         ActionsGuarded = "DiscoverPreviewAndAccept")
+qual_numhits <- list(QualificationTypeId = '00000000000000000040',
+                     Comparator = 'GreaterThanOrEqualTo',
+                     IntegerValues = 1000,
+                     ActionsGuarded = "DiscoverPreviewAndAccept")
+qual_usa <- list(QualificationTypeId = '00000000000000000071',
+                 Comparator = 'EqualTo',
+                 LocaleValues = list(Country = 'US'),
+                 ActionsGuarded = "DiscoverPreviewAndAccept")
+hit1_req <- pyMTurkR::GenerateQualificationRequirement(quals = list(qual_approvehits,
+                                                                    qual_numhits,
+                                                                    qual_usa))
+```
+
+Second, I load in the “question” associated with the HIT. This is an
+HTML formatted page where I include a Qualtrics URL to direct
+participants to the researcher’s pre-treatment survey.
+
+``` r
+f <- system.file("templates/instructions_treatment_rep.html", package = "chatr")
+hit1_question <- pyMTurkR::GenerateHTMLQuestion(file = f)
+#> Warning in file(con, "r"): file("") only supports open = "w+" and open = "w+b":
+#> using the former
+```
+
+Finally, the HIT itself gives basic information about the task so
+MTurkers know if they want to proceed or not, in addition to the
+requirements and question created above.
+
+``` r
+pyMTurkR::CreateHIT(assignments = 100,
+                    expiration = 240, 
+                    duration = 900,
+                    reward = '0.75',
+                    title = 'Demographics & politics survey (3-5min).
+                    Qualify for above min wage HIT! Take now, expires soon!',
+                    keywords = 'survey, demographics, politics',
+                    description = "Share political opinions on salient issues.
+                    Answer demographic questions.  May qualify you for follow up
+                    HIT ($2, $1 bonus) that will be live at the top of the hour.",
+                    question = hit1_question,
+                    qual.req = hit1_req)
+#> HIT 3UOMW19E6D3MVOJXFMWWVHFPT7Y5CY created
+#>                        HITTypeId                          HITId Valid
+#> 1 359956SLTZUOT6KKJY7FLH2ZUOVLR3 3UOMW19E6D3MVOJXFMWWVHFPT7Y5CY  TRUE
+```
+
+### Prep experiment
+
+Assume the recruitment HIT was a success and 100 participants took the
+survey. Before bringing participants back to the Chatter experiment, the
+researcher needs to group the participants for conversations and
+randomly assign any treatments. Here, I’ll demonstrate a simple pairing
+algorithm with simulated data included in the `chatr` package. Then,
+given the resulting partnerships and treatment assignments from the
+algorithm, I’ll demonstrate how to upload this information to Chatter
+with `chatr` functions.
+
+#### Simple pairing algorithm
+
+Load the example recruitment HIT data from the `chatr` package,
+including a fake ID variable and a binary indicator of partisanship.
+(Presumably a researcher’s pre-treament survey would also ask many
+covariates, excluded for simplicity.)
+
+``` r
+data("recruit_ex") #load example data
+head(recruit_ex)
+#>           id pid
+#> 1 RDYQUIDYZB   R
+#> 2 JRCMBOYFQT   D
+#> 3 UAQRXFGUUH   R
+#> 4 NGVWSCPHTE   R
+#> 5 NWLQTSUHTV   D
+#> 6 AXWDTBRORJ   D
+```
+
+The following pairing algorithm is simple. For each participant, check
+to see if they already have a partner. If so, skip them. If not,
+randomly choose their partner from those who are of the opposite
+partisanship and aren’t already in a partnership. Assign the new
+partnership a unique ID. Iterate through participants until as many
+partnerships as possible are made.
+
+``` r
+set.seed(522)
+recruit_ex$pair_id <- NA
+pair_id_iter <- 1
+for (i in 1:nrow(recruit_ex)) {
+  if (!is.na(recruit_ex$pair_id[i])) {
+    next
+  }
+  
+  pid <- recruit_ex$pid[i]
+  poss_partners <- which(is.na(recruit_ex$pair_id) & (recruit_ex$pid != pid))
+  if (length(poss_partners) == 0) {
+    next
+  } else if (length(poss_partners) == 1) {
+    partner_idx <- poss_partners
+  } else {
+    partner_idx <- sample(poss_partners, size = 1)
+  }
+  
+  recruit_ex$pair_id[i] <- pair_id_iter
+  recruit_ex$pair_id[partner_idx] <- pair_id_iter
+  pair_id_iter <- pair_id_iter + 1
+}
+```
+
+The next step is to assign treatment at the partnership (or cluster)
+level. In this experiment, partnerships can either be assigned to
+conversation as a form of contact with their partner or no contact with
+their partner.
+
+``` r
+recruit_ex$Z <- randomizr::cluster_ra(recruit_ex$pair_id)
+```
+
+We can see the pairing algorithm and treatment assignment worked.
+Partnerships each feature one Democrat and one Republican. We can also
+see the treatment status (`Z`) of the partnership.
+
+``` r
+head(recruit_ex[order(recruit_ex$pair_id),])
+#>            id pid pair_id Z
+#> 1  RDYQUIDYZB   R       1 0
+#> 47 TQICCKTOUF   D       1 0
+#> 2  JRCMBOYFQT   D       2 1
+#> 33 FVWHFWBJSO   R       2 1
+#> 3  UAQRXFGUUH   R       3 1
+#> 6  AXWDTBRORJ   D       3 1
+```
+
+#### chatr
+
+`chatr` makes it easy to create our experiment with the Chatter
+software. First, use the `create_experiment` function to create a new
+experiment. The `post_survey_link` is any post-treatment Qualtrics
+survey the researcher wants participants to take. Participants will be
+redirected there after their time using Chatter.
+
+``` r
+my_experiment <- create_experiment(name = "Partner contact experiment",
+                                   post_survey_link = "http://erossiter.com/")
+```
+
+Next, we need to create instructions for our participants. In this
+experiment, we’ll have three unique instructions. One for control, one
+for treated Republicans (telling them they are talking to a Democrat),
+and one for treated Democrats (telling them they are talking to a
+Republican).
+
+Instructions can be formatted with HTML. Here, I load example
+instructions from the `chatr` package.
+
+``` r
+f_control <- system.file("templates/instructions_control.html", package = "chatr")
+f_treatment_d <- system.file("templates/instructions_treatment_d.html", package = "chatr")
+f_treatment_r <- system.file("templates/instructions_treatment_r.html", package = "chatr")
+
+html_control <- paste(readLines(f_control), collapse="")
+html_treatment_d <- paste(readLines(f_treatment_d), collapse="")
+html_treatment_r <- paste(readLines(f_treatment_r), collapse="")
+
+instruction_c <- create_instruction(experiment_id = my_experiment$content$id,
+                   name = "Control",
+                   text = html_control)
+
+instruction_t_d <- create_instruction(experiment_id =  my_experiment$content$id,
+                   name = "Treatment for Dems",
+                   text = html_treatment_d)
+
+instruction_t_r <- create_instruction(experiment_id =  my_experiment$content$id,
+                   name = "Treatment for Reps",
+                   text = html_treatment_r)
+```
+
+For convenience, let’s now add which instruction we intend for each
+participant to have to our `recruit_ex` dataframe. We’ll assign this
+instruction to the user via `chatr` below.
+
+``` r
+recruit_ex$instruction_id <- NA
+recruit_ex$instruction_id[recruit_ex$Z == 1 & recruit_ex$pid == "D"] <- instruction_t_d$content$id
+recruit_ex$instruction_id[recruit_ex$Z == 1 & recruit_ex$pid == "R"] <- instruction_t_r$content$id
+recruit_ex$instruction_id[recruit_ex$Z == 0] <- instruction_c$content$id
+```
+
+Next, we’ll create 50 chatrooms and 100 users for our Chatter
+experiment. As we create them, we’ll add which room and user we intend
+to be associated with each participant to our `recruit_ex` dataframe.
+
+``` r
+for(i in unique(recruit_ex$pair_id)){
+  room <- create_chatroom(topic = paste0("chatroom_pair", i),
+                min_duration = 480)
+  recruit_ex$chatroom_id[recruit_ex$pair_id == i] <- room$content$id
+}
+
+for(i in 1:nrow(recruit_ex)){
+  user <- create_user(username = paste0("user", recruit_ex$id[i]))
+  recruit_ex$user_id[i] <- user$content$id
+}
+```
+
+So far, we’ve created instructions, chatrooms, and users separately in
+Chatter. Now, we need to tie things together by creating chatroom
+memberships that tell Chatter what instruction and chatroom should be
+associated with each user. Before doing so, let’s give each user an
+optional display name that others in the chatroom see alongside the
+user’s messages.
+
+``` r
+recruit_ex$display_name <- stringi::stri_rand_strings(nrow(recruit_ex), 5)
+
+for(i in 1:nrow(recruit_ex)){
+  create_chatroom_membership(user_id = recruit_ex$user_id[i],
+                           chatroom_id = recruit_ex$chatroom_id[i],
+                           instruction_id = recruit_ex$instruction_id[i],
+                           display_name = recruit_ex$display_name[i])
+}
+```
+
+That’s it\! Chatter is ready for participants to log in.
+
+### An aside on deeplinks
+
+[Deep linking](https://en.wikipedia.org/wiki/Deep_linking) is useful
+with Chatter experiments. Deeplinks allow the researcher to provide a
+participant with a URL to Chatter that logs the participant in to view
+their assigned chatroom(s). This obviates the need for participants to
+have a username for Chatter and log themselves in.
+
+Chatter deeplinks take the following form:
+
+`http://chatter-washu.herokuapp.com/deeplink?user=<username>&room=<chatroom_id>`
+
+The `room` field is optional. Specifying the `room` field will bring a
+user *into* that specific chatroom. Without the `room` field specified,
+the user will be logged into Chatter and see a list of chatrooms they
+are assigned to.
+
+If you didn’t delete the example experiment created above, you can use
+the following deeplinks to see the difference.
+
+  - `http://chatter-washu.herokuapp.com/deeplink?user=user1&room=2631`
+  - `http://chatter-washu.herokuapp.com/deeplink?user=user1`
+
+### Experiment HIT
+
+So far, we’ve recruited participants for our study and prepped our
+Chatter experiment. Now, we need to invite participants back and ask
+them to complete our second HIT. Before posting the second HIT for the
+experiment, researchers will want to create and assign a qualification
+for participants invited back.
+
+``` r
+chatter_qual <- pyMTurkR::CreateQualificationType(name = "Invited",
+                                   description = "Invited to Chatter experiment",
+                                   status = "Active")
+```
+
+``` r
+pyMTurkR::AssignQualification(qual = chatter_qual$QualificationTypeId,
+                              workers = recruit_ex$id, #recall these are fake ids
+                              value = 100,
+                              notify = T)
+```
+
+And, researchers will want to require that the Workers have a score of
+100 on the qualification we just created to preview and accept the HIT.
+
+``` r
+qual_chat <- list(QualificationTypeId = chatter_qual$QualificationTypeId,
+                 Comparator = 'EqualTo',
+                 IntegerValues = 100,
+                 ActionsGuarded = "DiscoverPreviewAndAccept")
+hit2_req <- pyMTurkR::GenerateQualificationRequirement(quals = list(qual_chat))
+```
+
+I’ve also found it useful to send a reminder email to MTurk Workers
+before the HIT is live.
+
+``` r
+pyMTurkR::ContactWorker(subjects = "Reminder for follow-up HIT",
+                        msgs = "Please return for follow-up HIT",
+                        workers = recruit_ex$id) #recall these are fake ids
+```
+
+As with the recruitment HIT, we need to load our question HTML for the
+experiment HIT. A template is stored in the `chatr` package.\[3\] An
+important feature of this template is its use of deeplinks. The HTML
+includes a deeplink created given the user’s MTurk id, collected as a
+variable. The usernames in our experiment are prefaced with “user”, so
+the specific deeplinks in the `templates/chatter_question.xml` file take
+the form of: `http://chatter-washu.herokuapp.com/deeplink?user=user` +
+`mturkIDvariable`
+
+``` r
+f <- system.file("templates/test.xml", package = "chatr")
+hit2_question <- pyMTurkR::GenerateHTMLQuestion(file = f)
+```
+
+Finally, we post the HIT\!
+
+``` r
+pyMTurkR::CreateHIT(assignments = 100,
+                    expiration = 600, 
+                    duration = 3600,
+                    reward = '2',
+                    title = 'Follow up HIT: Conversation/short essay',
+                    keywords = 'survey, conversation, short essay, follow up',
+                    description = "This is a follow up HIT for Workers
+                    that completed initial survey on demographics and political
+                    opinions.  Potential $1.00 bonus.",
+                    question = hit2_question,
+                    qual.req = hit2_req)
+```
+
+All Chatter data can be viewed on the Researcher GUI, or can be
+downloaded with the `list` functions in the `chatr` package.
+
+## More examples of Chatter experiments in practice
 
 There are many ways to use Chatter in practice.
 
   - You could collect pre-treatment information and set up chatrooms
     amongst specific participants. Here, you could email participants a
-    specific link to join.
+    specific link to join, use deeplinks as demonstrated with the MTurk
+    example above, etc.
   - You could have participants create their own Chatter account (and
     thus pick their own username), and use the API to assign them to
     chatrooms (with a script in real time or not.)
@@ -357,55 +641,22 @@ There are many ways to use Chatter in practice.
     chatrooms in real time as they are taking your survey.
   - etc.
 
-Here, I’ll discuss two broad options for using Chatter. Participants are
-assigned pre-specified chatrooms, or participants are assigned chatrooms
-by convenience as they are available. I’ll demonstrate both with the
-Qualtrics survey platform.
+Broadly, these options fall into two camps.
 
-In either of these cases, deeplinks are useful. Deeplinks to Chatter
-take the following form.\[1\]
+1.  *Coordinated chats* Participants are assigned to pre-specified
+    chatrooms
+2.  *Real-time chats* Participants are assigned to chatrooms by
+    convenience upon completing the pre-treatment survey.
 
-`http://chatter-washu.herokuapp.com/deeplink?user=<username>&room=<chatroom_id`
+I’ve demonstrated option \#1 above. I’ll give an example of how to
+implement option \#2 with the Qualtrics survey platform here.
 
-If you didn’t delete the example experiment created above, you can use
-the following deeplink to see.
-
-`http://chatter-washu.herokuapp.com/deeplink?user=user1&room=2631`
-
-## Coordinated chats
-
-If you’d like to coordinate chats amongst specific users, hopefully you
-can see how the deeplinks are useful\!
-
-If you are able to email users, you can email them their specific
-deeplink.
-
-If users know the username you’ve created for them (perhaps on MTurk it
-is their MTurk id), they can login easily themselves using the Chatter
-interface.
-
-Or, you can redirect from a Qualtrics survey. It’s three simple steps.
-First, create your question where you ask participants for their unique
-identifier (that you already know from the pre-treatment survey and was
-used to set up chatrooms).
-
-Second, prepare to edit the URL users are redirected to at the end of
-the survey. Edit end of survey \> End of survey message \> Redirect to
-URL.
-
-Third, paste the deeplink there with [piped
-text](https://www.qualtrics.com/support/survey-platform/survey-module/editing-questions/piped-text/piped-text-overview/),
-grabbing the user’s id from the Qualtrics question you just created.
-`http://chatter-washu.herokuapp.com/deeplink?user=${q://QID1/ChoiceTextEntryValue}`
-
-TODO: screenshot here
-
-## Real-time chats
+### Real-time chats
 
 Real-time chats can be created with deeplinks, too. Again, you need to
-create an experiment just as we did before. The difference is that you
-will not know ahead of time exactly which participant will be filtered
-into each chatroom.
+create an experiment in Chatter just as we did before. The difference is
+that you will not know ahead of time exactly which participant will be
+filtered into each chatroom.
 
 In Qualtrics, the idea is to increment an embedded data variable each
 time someone completes the survey. If I’m the first participant to
@@ -421,6 +672,12 @@ TODO: When I get my Qualtrics account back I have an example of this.
 TODO: A more advance feature is real-time chats with a script prepared
 to make chatrooms on the fly…
 
-1.  The `room` field is optional. Specifying the `room` field will bring
-    a user *into* the chat, without this field the user will see a list
-    of chatrooms they are assigned to and click on one.
+1.  Logging in is not required with the use of deeplinks, explained
+    here.
+
+2.  Display names can be customized when assigning chatroom members,
+    explained here.
+
+3.  I want to caution that I’ve never used this template in my research.
+    Please test thoroughly for any bugs. See [this
+    resource](https://research-it.wharton.upenn.edu/news/capture-mturk-workers-ids-qualtrics-survey/).

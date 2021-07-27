@@ -4,10 +4,7 @@
 \alias{list_users}
 \title{List all users}
 \usage{
-list_users(bearer_token)
-}
-\arguments{
-\item{bearer_token}{A string. The researcher's Auth Token found in Chatter online interface > API Credentials.}
+list_users()
 }
 \value{
 Returns a list of four elements.  \code{status} is a string indicating whether the API call was successful or not,
@@ -20,7 +17,7 @@ List all users
 \examples{
 
 \dontrun{
-list_users(bearer_token = "<your-token-here>")
+list_users()
 }
 
 }

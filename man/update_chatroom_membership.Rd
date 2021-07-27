@@ -5,7 +5,6 @@
 \title{Update a chatroom membership}
 \usage{
 update_chatroom_membership(
-  bearer_token,
   chatroom_membership_id,
   user_id = NULL,
   chatroom_id = NULL,
@@ -13,8 +12,6 @@ update_chatroom_membership(
 )
 }
 \arguments{
-\item{bearer_token}{A string. The researcher's Auth Token found in Chatter online interface > API Credentials.}
-
 \item{chatroom_membership_id}{A numeric. The unique ID for the chatroom membership.}
 
 \item{user_id}{Optional. A numeric. The unique ID for the user.}
@@ -34,8 +31,7 @@ Update a chatroom membership
 \examples{
 
 \dontrun{
-update_chatroom_membership(bearer_token = "<your-token-here>",
-                           chatroom_membership_id = 1,
+update_chatroom_membership(chatroom_membership_id = 1,
                            instruction_id = 2) # Change instructions
 }
 

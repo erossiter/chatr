@@ -1,6 +1,5 @@
 #' Delete an experiment
 #'
-#' @param bearer_token A string. The researcher's Auth Token found in Chatter online interface > API Credentials.
 #' @param experiment_id A numeric. The unique ID for the experiment.
 #'
 #' @return Returns a list of four elements.  `status` is a string indicating whether the API call was successful or not,
@@ -10,16 +9,17 @@
 #' @examples
 #'
 #' \dontrun{
-#' delete_experiment(bearer_token = "<your-token-here>")
+#' delete_experiment(experiment_id = 1)
 #' }
 #'
 #' @export
-delete_experiment <- function (bearer_token,
-                               experiment_id) {
+delete_experiment <- function (experiment_id) {
 
   path <- paste0("/research/experiments/",
                  experiment_id,
                  ".json")
+
+  bearer_token <- get_bearer_token()
 
   out <- chatter_DELETE(bearer_token = bearer_token,
                         path = path)
@@ -29,7 +29,6 @@ delete_experiment <- function (bearer_token,
 
 #' Delete an instruction
 #'
-#' @param bearer_token A string. The researcher's Auth Token found in Chatter online interface > API Credentials.
 #' @param instruction_id A numeric. The unique ID for the instruction.
 #'
 #' @return Returns a list of four elements.  `status` is a string indicating whether the API call was successful or not,
@@ -42,16 +41,17 @@ delete_experiment <- function (bearer_token,
 #' @examples
 #'
 #' \dontrun{
-#' delete_instruction(bearer_token = "<your-token-here>")
+#' delete_instruction(instruction_id = 1)
 #' }
 #'
 #' @export
-delete_instruction <- function (bearer_token,
-                                instruction_id) {
+delete_instruction <- function (instruction_id) {
 
   path <- paste0("/research/instructions/",
                  instruction_id,
                  ".json")
+
+  bearer_token <- get_bearer_token()
 
   out <- chatter_DELETE(bearer_token = bearer_token,
                         path = path)
@@ -61,7 +61,6 @@ delete_instruction <- function (bearer_token,
 
 #' Delete a chatroom
 #'
-#' @param bearer_token A string. The researcher's Auth Token found in Chatter online interface > API Credentials.
 #' @param chatroom_id A numeric. The unique ID for the chatroom.
 #'
 #' @return Returns a list of four elements.  `status` is a string indicating whether the API call was successful or not,
@@ -71,16 +70,17 @@ delete_instruction <- function (bearer_token,
 #' @examples
 #'
 #' \dontrun{
-#' delete_chatroom(bearer_token = "<your-token-here>")
+#' delete_chatroom(chatroom_id = 1)
 #' }
 #'
 #' @export
-delete_chatroom <- function (bearer_token,
-                             chatroom_id) {
+delete_chatroom <- function (chatroom_id) {
 
   path <- paste0("/research/chatrooms/",
                  chatroom_id,
                  ".json")
+
+  bearer_token <- get_bearer_token()
 
   out <- chatter_DELETE(bearer_token = bearer_token,
                         path = path)
@@ -91,7 +91,6 @@ delete_chatroom <- function (bearer_token,
 
 #' Delete a user
 #'
-#' @param bearer_token A string. The researcher's Auth Token found in Chatter online interface > API Credentials.
 #' @param user_id A numeric. The unique ID for the user.
 #'
 #' @return Returns a list of four elements.  `status` is a string indicating whether the API call was successful or not,
@@ -101,16 +100,17 @@ delete_chatroom <- function (bearer_token,
 #' @examples
 #'
 #' \dontrun{
-#' delete_user(bearer_token = "<your-token-here>")
+#' delete_user(user_id = 1)
 #' }
 #'
 #' @export
-delete_user <- function (bearer_token,
-                         user_id) {
+delete_user <- function (user_id) {
 
   path <- paste0("/research/users/",
                  user_id,
                  ".json")
+
+  bearer_token <- get_bearer_token()
 
   out <- chatter_DELETE(bearer_token = bearer_token,
                         path = path)
@@ -120,7 +120,6 @@ delete_user <- function (bearer_token,
 
 #' Delete a chatroom membership
 #'
-#' @param bearer_token A string. The researcher's Auth Token found in Chatter online interface > API Credentials.
 #' @param chatroom_membership_id A numeric. The unique ID for the chatroom membership.
 #'
 #' @return Returns a list of four elements.  `status` is a string indicating whether the API call was successful or not,
@@ -130,16 +129,17 @@ delete_user <- function (bearer_token,
 #' @examples
 #'
 #' \dontrun{
-#' delete_chatroom_membership(bearer_token = "<your-token-here>")
+#' delete_chatroom_membership(chatroom_membership_id = 1)
 #' }
 #'
 #' @export
-delete_chatroom_membership <- function (bearer_token,
-                                        chatroom_membership_id) {
+delete_chatroom_membership <- function (chatroom_membership_id) {
 
   path <- paste0("/research/chatroom_memberships/",
                  chatroom_membership_id,
                  ".json")
+
+  bearer_token <- get_bearer_token()
 
   out <- chatter_DELETE(bearer_token = bearer_token,
                         path = path)
@@ -149,7 +149,6 @@ delete_chatroom_membership <- function (bearer_token,
 
 #' Delete a message
 #'
-#' @param bearer_token A string. The researcher's Auth Token found in Chatter online interface > API Credentials.
 #' @param message_id A numeric. The unique ID for the message.
 #'
 #' @return Returns a list of four elements.  `status` is a string indicating whether the API call was successful or not,
@@ -159,16 +158,17 @@ delete_chatroom_membership <- function (bearer_token,
 #' @examples
 #'
 #' \dontrun{
-#' delete_message(bearer_token = "<your-token-here>")
+#' delete_message(message_id = 1)
 #' }
 #'
 #' @export
-delete_message <- function (bearer_token,
-                            message_id) {
+delete_message <- function (message_id) {
 
   path <- paste0("/research/messages/",
                  message_id,
                  ".json")
+
+  bearer_token <- get_bearer_token()
 
   out <- chatter_DELETE(bearer_token = bearer_token,
                         path = path)

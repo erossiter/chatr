@@ -5,7 +5,6 @@
 \title{Create an experiment}
 \usage{
 create_experiment(
-  bearer_token,
   name,
   post_survey_link = NULL,
   moderator_message = NULL,
@@ -13,8 +12,6 @@ create_experiment(
 )
 }
 \arguments{
-\item{bearer_token}{A string. The researcher's Auth Token found in Chatter online interface > API Credentials.}
-
 \item{name}{A string. The experiment's name.}
 
 \item{post_survey_link}{Optional. A string. A link to direct users to after the chat}
@@ -34,8 +31,7 @@ Create an experiment
 \examples{
 
 \dontrun{
-create_experiment(bearer_token = "<your-token-here>",
-                  name = "My First Experiment")
+create_experiment(name = "My First Experiment")
 }
 
 }

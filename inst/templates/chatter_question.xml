@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta http-equiv='Content-Type' content='text/html; charset=UTF-8'/>
+  <script type='text/javascript' src='https://s3.amazonaws.com/mturk-public/externalHIT_v1.js'></script>
+ </head>
+ <body>
+  <form name='mturk_form' method='post' id='mturk_form' action='https://www.mturk.com/mturk/externalSubmit'>
+  <input type='hidden' value='' name='assignmentId' id='assignmentId'/>
+  
+
+  <h3>This HIT is for Workers who took the intial survey on political opinions, agreed to do the follow-up conversation, and were qualified by the researchers.</h3>
+    <ul>
+      <li>You'll complete a 8 minute written, online conversation with another Worker or short essay.</li>
+      <li>After the conversation/essay, you will take a short survey and receive a completion code to copy/paste below.</li>
+      <li>You will be compensated $2 <i>even if something goes wrong</i> (i.e., partner does not show up) as long as the you indicate the problem you encountered in the text box below.</li>
+    </ul>
+    
+    
+      <h3>Please enter your MTurk ID before proceeding:</h3>
+  <div class='control-group'>
+  <div class='controls'><input class='input-xlarge' id='mturkid' name='mturkid' placeholder=' ' type='text' />
+
+
+  <table class='table table-condensed table-bordered'>
+    <colgroup>
+      <col class='col-xs-4 col-md-4' />
+      <col class='col-xs-8 col-md-8' />
+    </colgroup>
+    <tbody>
+      <tr>
+        <td><label>Click here to begin:</label></td>
+        <td><a background-color:="" class="survey-link ng-binding" color:="" cursor:="" font-size:="" helvetica="" href="https://wustl.az1.qualtrics.com/jfe/form/SV_8puTLyX8E5bjGsu" outline-offset:="" outline:="" qualtrics="" style="font-family: " target="_blank" text-align:="">https://wustl.az1.qualtrics.com/jfe/form/SV_8puTLyX8E5bjGsu</a></td>
+      </tr>
+    </tbody>
+  </table>  
+
+  <p></br><p>
+
+  <h3>Return here and answer one of the following questions to be compensated.</h3>
+
+
+  <p>If you successfully completed the survey, enter your completion code:</p>
+  <div class='control-group'>
+  <div class='controls'><input class='input-xlarge' id='completioncode' name='completioncode' placeholder='e.g. 12345' type='text' />
+
+  <p>If you were unable to complete the task, describe the problem you encountered (you will receive full compensation):</p>
+  <div class='control-group'>
+  <div class='controls'><textarea cols='50' id='problemreason' name='problemreason' placeholder='e.g. Waited five minutes and partner did not show up...' rows='4'></textarea></div>
+  </div>
+
+  <p><input type='submit' id='submitButton' value='Submit' /></p></form>
+  <script language='Javascript'>turkSetAssignmentID();</script>
+ </body>
+</html>

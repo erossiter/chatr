@@ -4,11 +4,9 @@
 \alias{create_message}
 \title{Create a message}
 \usage{
-create_message(bearer_token, user_id, chatroom_id, content)
+create_message(user_id, chatroom_id, content)
 }
 \arguments{
-\item{bearer_token}{A string. The researcher's Auth Token found in Chatter online interface > API Credentials.}
-
 \item{user_id}{A numeric. The unique ID for the user. Note that the user posting the message does not have to be a member of the chatroom.}
 
 \item{chatroom_id}{A numeric. The unique ID for the chatroom.}
@@ -27,8 +25,7 @@ Create a message
 
 \dontrun{
 #create experiment, instruction, user, and chatroom first
-create_message(bearer_token = "<your-token-here>",
-               user_id = 1,
+create_message(user_id = 1,
                chatroom_id = 1,
                content = "hi")
 }

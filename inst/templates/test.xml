@@ -1,0 +1,56 @@
+!-- For help on using this template, see the blog post: http://mechanicalturk.typepad.com/blog/2014/04/editing-the-survey-link-project-template-in-the-ui.html --><!-- Bootstrap v3.0.3 -->
+<link href="https://s3.amazonaws.com/mturk-public/bs30/css/bootstrap.min.css" rel="stylesheet" />
+<section class="container" id="SurveyLink" style="margin-bottom:15px; padding: 10px 10px; font-family: Verdana, Geneva, sans-serif; color:#333333; font-size:0.9em;">
+<div class="row col-xs-12 col-md-12"><!-- Instructions -->
+<div class="panel panel-primary">
+<div class="panel-heading"><strong>Instructions</strong></div>
+
+<div class="panel-body">
+<p>We are conducting an academic survey about social networks. We need to understand your opinion about social networks. Select the link below to complete the survey. At the end of the survey, you will receive a code to paste into the box below to receive credit for taking our survey.</p>
+
+<p><strong>Make sure to leave this window open as you complete the survey. </strong> When you are finished, you will return to this page to paste the code into the box.</p>
+
+<p style="font-size: 0.9em; font-style:italic; background-color:#eeeeee; padding:10px;"><strong>Template note for Requesters </strong>- To verify that Workers actually complete your survey, require each Worker to enter a <span style="text-decoration:underline;">unique</span> survey completion code to your HIT. Consult with your survey service provider on how to generate this code at the end of your survey.</p>
+</div>
+</div>
+<!-- End Instruction -->
+
+<table>
+ <tbody>
+ <tr>
+ <td><strong>Survey link:</strong></td>
+ <td><div id="myelementLink" style="display: inline; font-family: Verdana;"><tt>URL not shown because there is an error with Javascript on your computer. To perform this HIT, you must have Javascript and cookies enabled on your browser.</tt></div>
+<script type="text/javascript" language="JavaScript"><!--
+var assignment_id_field = document.getElementById('myelementLink');
+var paramstr = window.location.search.substring(1);
+var parampairs = paramstr.split("&");
+var mturkworkerID = "";
+for (i in parampairs) {
+ var pair = parampairs[i].split("=");
+ if (pair[0] == "workerId")
+ mturkworkerID = pair[1];
+}
+if (mturkworkerID == "" ) {
+ assignment_id_field.innerHTML = '<tt>The link will appear here only if you accept this HIT.</tt>';
+} else {
+ assignment_id_field.innerHTML = '<a target="_blank" href=" http://chatter-washu.herokuapp.com/deeplink?user=user' + mturkworkerID + '"><h1><span style="color: rgb(255, 0, 0);"><span style="font-family: Courier New;"><b>Click here to begin taking the survey!</b></span></span></h1></a>';
+}
+
+// --></script>
+
+<div class="link" id="linkDiv">&nbsp;</div></td>
+ </tr>
+ <tr>
+ <td><strong>Provide the survey code here:</strong></td>
+ <td style="vertical-align: middle;"><input class="form-control" id="surveycode" name="surveycode" placeholder="e.g. 123456" type="text" /></td>
+ </tr>
+ </tbody>
+</table>
+</div>
+</section>
+<!-- close container section -->
+<style type="text/css">td {
+ font-size:1.0em;
+ padding:5px 5px;
+}
+</style>

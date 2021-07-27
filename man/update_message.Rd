@@ -4,17 +4,9 @@
 \alias{update_message}
 \title{Update a message}
 \usage{
-update_message(
-  bearer_token,
-  message_id,
-  user_id = NULL,
-  chatroom_id = NULL,
-  content = NULL
-)
+update_message(message_id, user_id = NULL, chatroom_id = NULL, content = NULL)
 }
 \arguments{
-\item{bearer_token}{A string. The researcher's Auth Token found in Chatter online interface > API Credentials.}
-
 \item{message_id}{A numeric. The unique ID for the message.}
 
 \item{user_id}{Optional. A numeric. The unique ID for the user. Note that the user posting the message does not have to be a member of the chatroom.}
@@ -34,8 +26,7 @@ Update a message
 \examples{
 
 \dontrun{
-update_message(bearer_token = "<your-token-here>",
-               message_id = 1,
+update_message(message_id = 1,
                content = "updated message content")
 }
 

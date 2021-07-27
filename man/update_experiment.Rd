@@ -5,7 +5,6 @@
 \title{Update an experiment}
 \usage{
 update_experiment(
-  bearer_token,
   experiment_id,
   name = NULL,
   post_survey_link = NULL,
@@ -14,8 +13,6 @@ update_experiment(
 )
 }
 \arguments{
-\item{bearer_token}{A string. The researcher's Auth Token found in Chatter online interface > API Credentials.}
-
 \item{experiment_id}{A numeric. The unique ID for the experiment.}
 
 \item{name}{Optional. A string. The experiment's name.}
@@ -37,8 +34,7 @@ Update an experiment
 \examples{
 
 \dontrun{
-update_experiment(bearer_token = "<your-token-here>",
-                  experiment_id = 1,
+update_experiment(experiment_id = 1,
                   name = "New Name for Experiment")
 }
 

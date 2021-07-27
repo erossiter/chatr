@@ -4,11 +4,9 @@
 \alias{delete_experiment}
 \title{Delete an experiment}
 \usage{
-delete_experiment(bearer_token, experiment_id)
+delete_experiment(experiment_id)
 }
 \arguments{
-\item{bearer_token}{A string. The researcher's Auth Token found in Chatter online interface > API Credentials.}
-
 \item{experiment_id}{A numeric. The unique ID for the experiment.}
 }
 \value{
@@ -22,7 +20,7 @@ Delete an experiment
 \examples{
 
 \dontrun{
-delete_experiment(bearer_token = "<your-token-here>")
+delete_experiment(experiment_id = 1)
 }
 
 }

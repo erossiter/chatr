@@ -4,11 +4,9 @@
 \alias{create_instruction}
 \title{Create an instruction}
 \usage{
-create_instruction(bearer_token, experiment_id, name, text)
+create_instruction(experiment_id, name, text)
 }
 \arguments{
-\item{bearer_token}{A string. The researcher's Auth Token found in Chatter online interface > API Credentials.}
-
 \item{experiment_id}{A numeric. The unique ID for the experiment.}
 
 \item{name}{A string. The instruction's name. Visible only to the researcher}
@@ -26,8 +24,7 @@ Create an instruction
 \examples{
 
 \dontrun{
-create_instruction(bearer_token = "<your-token-here>",
-                   experiment_id = 1, # create experiment first
+create_instruction(experiment_id = 1, # create experiment first
                    name = "Instructions for My First Experiment",
                    text = "Follow these instructions.")
 }

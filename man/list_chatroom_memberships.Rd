@@ -4,10 +4,7 @@
 \alias{list_chatroom_memberships}
 \title{List all chatroom memberships}
 \usage{
-list_chatroom_memberships(bearer_token)
-}
-\arguments{
-\item{bearer_token}{A string. The researcher's Auth Token found in Chatter online interface > API Credentials.}
+list_chatroom_memberships()
 }
 \value{
 Returns a list of four elements.  \code{status} is a string indicating whether the API call was successful or not,
@@ -20,7 +17,7 @@ List all chatroom memberships
 \examples{
 
 \dontrun{
-list_chatroom_memberships(bearer_token = "<your-token-here>")
+list_chatroom_memberships()
 }
 
 }

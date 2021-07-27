@@ -5,7 +5,6 @@
 \title{Update an instruction}
 \usage{
 update_instruction(
-  bearer_token,
   instruction_id,
   experiment_id = NULL,
   name = NULL,
@@ -13,8 +12,6 @@ update_instruction(
 )
 }
 \arguments{
-\item{bearer_token}{A string. The researcher's Auth Token found in Chatter online interface > API Credentials.}
-
 \item{instruction_id}{A numeric. A numeric. The unique ID for the instruction.}
 
 \item{experiment_id}{Optional. A numeric. The unique ID for the experiment.}
@@ -34,8 +31,7 @@ Update an instruction
 \examples{
 
 \dontrun{
-update_instruction(bearer_token = "<your-token-here>",
-                   instruction_id = 1,
+update_instruction(instruction_id = 1,
                    name = "New Name for Instruction")
 }
 

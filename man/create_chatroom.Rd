@@ -4,11 +4,9 @@
 \alias{create_chatroom}
 \title{Create a chatroom}
 \usage{
-create_chatroom(bearer_token, topic, min_duration = NULL, max_duration = NULL)
+create_chatroom(topic, min_duration = NULL, max_duration = NULL)
 }
 \arguments{
-\item{bearer_token}{A string. The researcher's Auth Token found in Chatter online interface > API Credentials.}
-
 \item{topic}{A string. Unique identifier for the chatroom. Only visible to researcher.}
 
 \item{min_duration}{A numeric.  The minimum time in seconds users must spend in the chatroom before the "Done" button is active.}
@@ -26,8 +24,7 @@ Create a chatroom
 \examples{
 
 \dontrun{
-create_chatroom(bearer_token = "<your-token-here>",
-                topic = "My First Chatroom",
+create_chatroom(topic = "My First Chatroom",
                 min_duration = 30,
                 max_duration = 600)
 }

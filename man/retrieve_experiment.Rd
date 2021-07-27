@@ -4,11 +4,9 @@
 \alias{retrieve_experiment}
 \title{Retrieve an experiment}
 \usage{
-retrieve_experiment(bearer_token, experiment_id)
+retrieve_experiment(experiment_id)
 }
 \arguments{
-\item{bearer_token}{A string. The researcher's Auth Token found in Chatter online interface > API Credentials.}
-
 \item{experiment_id}{A numeric. The unique ID for the experiment.}
 }
 \value{
@@ -22,7 +20,7 @@ Retrieve an experiment
 \examples{
 
 \dontrun{
-retrieve_experiment(bearer_token = "<your-token-here>")
+retrieve_experiment(experiment_id = 1)
 }
 
 }

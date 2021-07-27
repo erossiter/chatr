@@ -4,11 +4,9 @@
 \alias{delete_instruction}
 \title{Delete an instruction}
 \usage{
-delete_instruction(bearer_token, instruction_id)
+delete_instruction(instruction_id)
 }
 \arguments{
-\item{bearer_token}{A string. The researcher's Auth Token found in Chatter online interface > API Credentials.}
-
 \item{instruction_id}{A numeric. The unique ID for the instruction.}
 }
 \value{
@@ -26,7 +24,7 @@ before you can successfully delete the instruction.
 \examples{
 
 \dontrun{
-delete_instruction(bearer_token = "<your-token-here>")
+delete_instruction(instruction_id = 1)
 }
 
 }

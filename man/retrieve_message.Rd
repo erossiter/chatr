@@ -4,11 +4,9 @@
 \alias{retrieve_message}
 \title{Retrieve a message}
 \usage{
-retrieve_message(bearer_token, message_id)
+retrieve_message(message_id)
 }
 \arguments{
-\item{bearer_token}{A string. The researcher's Auth Token found in Chatter online interface > API Credentials.}
-
 \item{message_id}{A numeric. The unique ID for the message.}
 }
 \value{
@@ -22,7 +20,7 @@ Retrieve a message
 \examples{
 
 \dontrun{
-retrieve_message(bearer_token = "<your-token-here>")
+retrieve_message(message_id = 1)
 }
 
 }

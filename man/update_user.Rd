@@ -4,11 +4,9 @@
 \alias{update_user}
 \title{Update a user}
 \usage{
-update_user(bearer_token, user_id, username = NULL)
+update_user(user_id, username = NULL)
 }
 \arguments{
-\item{bearer_token}{A string. The researcher's Auth Token found in Chatter online interface > API Credentials.}
-
 \item{user_id}{A numeric. The unique ID for the user.}
 
 \item{username}{Optional. A string. Unique identifier for the user. Only visible to researcher.}
@@ -24,8 +22,7 @@ Update a user
 \examples{
 
 \dontrun{
-update_user(bearer_token = "<your-token-here>",
-            user_id = 1,
+update_user(user_id = 1,
             username = "New Username")
 }
 

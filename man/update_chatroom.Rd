@@ -5,7 +5,6 @@
 \title{Update a chatroom}
 \usage{
 update_chatroom(
-  bearer_token,
   chatroom_id,
   topic = NULL,
   min_duration = NULL,
@@ -13,8 +12,6 @@ update_chatroom(
 )
 }
 \arguments{
-\item{bearer_token}{A string. The researcher's Auth Token found in Chatter online interface > API Credentials.}
-
 \item{chatroom_id}{A numeric. The unique ID for the chatroom.}
 
 \item{topic}{Optional. A string. Unique identifier for the chatroom. Only visible to researcher.}
@@ -34,8 +31,7 @@ Update a chatroom
 \examples{
 
 \dontrun{
-update_chatroom(bearer_token = "<your-token-here>",
-                chatroom_id = "1",
+update_chatroom(chatroom_id = "1",
                 max_duration = 900)
 }
 

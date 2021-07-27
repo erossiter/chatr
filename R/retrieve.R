@@ -1,6 +1,5 @@
 #' Retrieve an experiment
 #'
-#' @param bearer_token A string. The researcher's Auth Token found in Chatter online interface > API Credentials.
 #' @param experiment_id A numeric. The unique ID for the experiment.
 #'
 #' @return Returns a list of four elements.  `status` is a string indicating whether the API call was successful or not,
@@ -10,16 +9,17 @@
 #' @examples
 #'
 #' \dontrun{
-#' retrieve_experiment(bearer_token = "<your-token-here>")
+#' retrieve_experiment(experiment_id = 1)
 #' }
 #'
 #' @export
-retrieve_experiment <- function (bearer_token,
-                                 experiment_id) {
+retrieve_experiment <- function (experiment_id) {
 
   path <- paste0("/research/experiments/",
                  experiment_id,
                  ".json")
+
+  bearer_token <- get_bearer_token()
 
   out <- chatter_GET(bearer_token = bearer_token,
                      path = path)
@@ -29,7 +29,6 @@ retrieve_experiment <- function (bearer_token,
 
 #' Retrieve an instruction
 #'
-#' @param bearer_token A string. The researcher's Auth Token found in Chatter online interface > API Credentials.
 #' @param instruction_id A numeric. The unique ID for the instruction.
 #'
 #' @return Returns a list of four elements.  `status` is a string indicating whether the API call was successful or not,
@@ -39,16 +38,17 @@ retrieve_experiment <- function (bearer_token,
 #' @examples
 #'
 #' \dontrun{
-#' retrieve_instruction(bearer_token = "<your-token-here>")
+#' retrieve_instruction(instruction_id = 1)
 #' }
 #'
 #' @export
-retrieve_instruction <- function (bearer_token,
-                                  instruction_id) {
+retrieve_instruction <- function (instruction_id) {
 
   path <- paste0("/research/instructions/",
                  instruction_id,
                  ".json")
+
+  bearer_token <- get_bearer_token()
 
   out <- chatter_GET(bearer_token = bearer_token,
                      path = path)
@@ -58,7 +58,6 @@ retrieve_instruction <- function (bearer_token,
 
 #' Retrieve a chatroom
 #'
-#' @param bearer_token A string. The researcher's Auth Token found in Chatter online interface > API Credentials.
 #' @param chatroom_id A numeric. The unique ID for the chatroom.
 #'
 #' @return Returns a list of four elements.  `status` is a string indicating whether the API call was successful or not,
@@ -68,16 +67,17 @@ retrieve_instruction <- function (bearer_token,
 #' @examples
 #'
 #' \dontrun{
-#' retrieve_chatroom(bearer_token = "<your-token-here>")
+#' retrieve_chatroom(chatroom_id = 1)
 #' }
 #'
 #' @export
-retrieve_chatroom <- function (bearer_token,
-                               chatroom_id) {
+retrieve_chatroom <- function (chatroom_id) {
 
   path <- paste0("/research/chatrooms/",
                  chatroom_id,
                  ".json")
+
+  bearer_token <- get_bearer_token()
 
   out <- chatter_GET(bearer_token = bearer_token,
                      path = path)
@@ -88,7 +88,6 @@ retrieve_chatroom <- function (bearer_token,
 
 #' Retrieve a user
 #'
-#' @param bearer_token A string. The researcher's Auth Token found in Chatter online interface > API Credentials.
 #' @param user_id A numeric. The unique ID for the user.
 #'
 #' @return Returns a list of four elements.  `status` is a string indicating whether the API call was successful or not,
@@ -98,16 +97,17 @@ retrieve_chatroom <- function (bearer_token,
 #' @examples
 #'
 #' \dontrun{
-#' retrieve_user(bearer_token = "<your-token-here>")
+#' retrieve_user(user_id = 1)
 #' }
 #'
 #' @export
-retrieve_user <- function (bearer_token,
-                               user_id) {
+retrieve_user <- function (user_id) {
 
   path <- paste0("/research/users/",
                  user_id,
                  ".json")
+
+  bearer_token <- get_bearer_token()
 
   out <- chatter_GET(bearer_token = bearer_token,
                      path = path)
@@ -117,7 +117,6 @@ retrieve_user <- function (bearer_token,
 
 #' Retrieve a chatroom membership
 #'
-#' @param bearer_token A string. The researcher's Auth Token found in Chatter online interface > API Credentials.
 #' @param chatroom_membership_id A numeric. The unique ID for the chatroom membership.
 #'
 #' @return Returns a list of four elements.  `status` is a string indicating whether the API call was successful or not,
@@ -127,16 +126,17 @@ retrieve_user <- function (bearer_token,
 #' @examples
 #'
 #' \dontrun{
-#' retrieve_chatroom_membership(bearer_token = "<your-token-here>")
+#' retrieve_chatroom_membership(chatroom_membership_id = 1)
 #' }
 #'
 #' @export
-retrieve_chatroom_membership <- function (bearer_token,
-                                          chatroom_membership_id) {
+retrieve_chatroom_membership <- function (chatroom_membership_id) {
 
   path <- paste0("/research/chatroom_memberships/",
                  chatroom_membership_id,
                  ".json")
+
+  bearer_token <- get_bearer_token()
 
   out <- chatter_GET(bearer_token = bearer_token,
                      path = path)
@@ -146,7 +146,6 @@ retrieve_chatroom_membership <- function (bearer_token,
 
 #' Retrieve a message
 #'
-#' @param bearer_token A string. The researcher's Auth Token found in Chatter online interface > API Credentials.
 #' @param message_id A numeric. The unique ID for the message.
 #'
 #' @return Returns a list of four elements.  `status` is a string indicating whether the API call was successful or not,
@@ -156,16 +155,17 @@ retrieve_chatroom_membership <- function (bearer_token,
 #' @examples
 #'
 #' \dontrun{
-#' retrieve_message(bearer_token = "<your-token-here>")
+#' retrieve_message(message_id = 1)
 #' }
 #'
 #' @export
-retrieve_message<- function (bearer_token,
-                                          message_id) {
+retrieve_message<- function (message_id) {
 
   path <- paste0("/research/messages/",
                  message_id,
                  ".json")
+
+  bearer_token <- get_bearer_token()
 
   out <- chatter_GET(bearer_token = bearer_token,
                      path = path)
