@@ -1,5 +1,5 @@
 Package: chatr
-Title: R Wrapper Functions for Chatter API
+Title: R Wrapper Functions for Chatter API TEST
 Version: 0.1.0.0
 Authors@R: 
     person(given = "Erin",
