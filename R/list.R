@@ -61,13 +61,37 @@ list_instructions <- function () {
 #'
 #' @export
 list_chatrooms <- function () {
-
+  
   bearer_token <- get_bearer_token()
-
-  out <- chatter_GET(bearer_token = bearer_token,
-                     path = "/research/chatrooms.json")
-
-  return_structure(out)
+  
+  keep_paginating <- TRUE
+  page <- 0
+  all_data <- data.frame()
+  while(keep_paginating){
+    page <- page + 1
+    
+    # get data for each page
+    out_raw <- chatter_GET(bearer_token = bearer_token,
+                           path = paste0("/research/chatrooms.json?page=", page))
+    out_clean <- return_structure(out_raw)
+    
+    ##### TODO:
+    ##### 1. look for errors, aggregate meta-data
+    ##### 2. return all info from (1) nicely
+    ##### 3. Maybe a nice message on progress for the user
+    ##### .... even something they can turn on or off
+    
+    # append page's data to full data set
+    all_data <- rbind.data.frame(all_data, out_clean$content) 
+    
+    # check if the page's data is empty,
+    # if so, stop while loop
+    if(ncol(out_clean$content)==0 & nrow(out_clean$content)==0){
+      keep_paginating <- FALSE
+    }
+  }
+  
+  return(all_data)
 }
 
 #' List all users
