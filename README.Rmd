@@ -25,11 +25,9 @@ To get started, visit [Chatter](http://chatter-washu.herokuapp.com/research/sign
 Log in and find your API credentials.  You'll need the Token for any calls you make to Chatter with `chatr`.  Set it as an environment variable.
 
 ```{r, eval=F}
-Sys.setenv(BEARER_TOKEN = 'b9eb1d0729290bf58204c7b486faa9e3fdaa7e40')
+Sys.setenv(BEARER_TOKEN = )
 ```
 
-
-testing 123
 
 ## Installation
 
@@ -37,7 +35,7 @@ You can install the `chatr` package from Github.
 
 ```{r}
 #install.packages("devtools")
-devtools::install_github("erossiter/chatr",auth_token = "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")
+devtools::install_github("erossiter/chatr",auth_token = )
 ```
 
 After install, you should load the package.
