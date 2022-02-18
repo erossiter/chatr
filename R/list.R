@@ -26,10 +26,16 @@ list_experiments <- function () {
     out_raw <- chatter_GET(bearer_token = bearer_token,
                      path = paste0("/research/experiments.json?page=", page))
                      
-    out_clean <- return_structure(out_raw) 
+    #out_clean <- return_structure(out_raw) 
+    
+    # TODO: 
+    # Separate dataframe
+    out_raw$path
+    out_raw$parsed$status
+    out_raw$parsed$error
     
     # append page's data to full data set
-    all_data <- rbind.data.frame(all_data, out_clean$content) 
+    all_data <- rbind.data.frame(all_data, out_raw$parsed$experiments) 
     
     # check if the page's data is empty,
     # if so, stop while loop
@@ -38,7 +44,8 @@ list_experiments <- function () {
     }
   }
   
-  return(all_data)
+  return(list("all_data" = all_data,
+              "meta_data" = OTHERDATAFRAME))
 }
              
 
