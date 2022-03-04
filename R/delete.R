@@ -15,15 +15,19 @@
 #' @export
 delete_experiment <- function (experiment_id) {
 
+  bearer_token <- get_bearer_token()
+  
+  # inside a loop ---
   path <- paste0("/research/experiments/",
                  experiment_id,
                  ".json")
 
-  bearer_token <- get_bearer_token()
-
   out <- chatter_DELETE(bearer_token = bearer_token,
                         path = path)
+  # --------
 
+  # we return a list of two elements just like in the list() functions
+  # content (or all_data as it's written now) is still returned, but it's just empty
   return_structure(out, delete = T)
 }
 
