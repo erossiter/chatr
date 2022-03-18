@@ -26,28 +26,22 @@ list_experiments <- function () {
     # get data for each page
     out_raw <- chatter_GET(bearer_token = bearer_token,
                      path = paste0("/research/experiments.json?page=", page))
-                     
-    #out_clean <- return_structure(out_raw) 
     
+    # get meta-data
     Path <- out_raw$path
     Status <- out_raw$parsed$status
     Error <- out_raw$parsed$error
     Error <- ifelse(is.null(Error), "no error", Error)
+    
+    # append data
     data_notes <- data.frame(Path, Status, Error)
     data_notes_full <- rbind.data.frame(data_notes_full, data_notes)
-    
-    # TODO: 
-    # Separate dataframe
-    # out_raw$path
-    # out_raw$parsed$status
-    # out_raw$parsed$error
     
     # append page's data to full data set
     all_data <- rbind.data.frame(all_data, out_raw$parsed$experiments) 
     
     # check if the page's data is empty,
     # if so, stop while loop
-    #if(ncol(out_raw$parsed$experiments)==0 & nrow(out_raw$parsed$experiments)==0){
     if(length(out_raw$parsed$experiments) == 0){
       keep_paginating <- FALSE
     }
@@ -74,7 +68,7 @@ list_experiments <- function () {
 #'
 #' @export
 list_instructions <- function () {
-
+  
   bearer_token <- get_bearer_token()
   
   keep_paginating <- TRUE
@@ -83,30 +77,31 @@ list_instructions <- function () {
   data_notes_full <- data.frame()
   while(keep_paginating){
     page <- page + 1
-
+    
     # get data for each page
     out_raw <- chatter_GET(bearer_token = bearer_token,
-                     path = paste0("/research/instructions.json?page=", page))
-    #out_clean <- return_structure(out_raw)
+                           path = paste0("/research/instructions.json?page=", page))
     
+    # get meta-data
     Path <- out_raw$path
-    print(Path)
     Status <- out_raw$parsed$status
     Error <- out_raw$parsed$error
     Error <- ifelse(is.null(Error), "no error", Error)
+    
+    # append data
     data_notes <- data.frame(Path, Status, Error)
     data_notes_full <- rbind.data.frame(data_notes_full, data_notes)
-  
+    
     # append page's data to full data set
-    all_data <- rbind.data.frame(all_data, out_clean$content) 
+    all_data <- rbind.data.frame(all_data, out_raw$parsed$instructions) 
     
     # check if the page's data is empty,
     # if so, stop while loop
-    if(length(out_raw$parsed$experiments) == 0){
+    if(length(out_raw$parsed$instructions) == 0){
       keep_paginating <- FALSE
     }
-  
   }
+  
   return(list("all_data" = all_data,
               "meta_data" = data_notes_full))
 }
@@ -140,27 +135,23 @@ list_chatrooms <- function () {
     # get data for each page
     out_raw <- chatter_GET(bearer_token = bearer_token,
                            path = paste0("/research/chatrooms.json?page=", page))
-    #out_clean <- return_structure(out_raw)
     
+    # get meta-data
     Path <- out_raw$path
     Status <- out_raw$parsed$status
     Error <- out_raw$parsed$error
     Error <- ifelse(is.null(Error), "no error", Error)
+    
+    # append data
     data_notes <- data.frame(Path, Status, Error)
     data_notes_full <- rbind.data.frame(data_notes_full, data_notes)
     
-    ##### TODO:
-    ##### 1. look for errors, aggregate meta-data
-    ##### 2. return all info from (1) nicely
-    ##### 3. Maybe a nice message on progress for the user
-    ##### .... even something they can turn on or off
-    
     # append page's data to full data set
-    all_data <- rbind.data.frame(all_data, out_clean$content) 
+    all_data <- rbind.data.frame(all_data, out_raw$parsed$chatrooms) 
     
     # check if the page's data is empty,
     # if so, stop while loop
-    if(length(out_raw$parsed$experiments) == 0){
+    if(length(out_raw$parsed$chatrooms) == 0){
       keep_paginating <- FALSE
     }
   }
@@ -184,7 +175,7 @@ list_chatrooms <- function () {
 #'
 #' @export
 list_users <- function () {
-
+  
   bearer_token <- get_bearer_token()
   
   keep_paginating <- TRUE
@@ -196,22 +187,24 @@ list_users <- function () {
     
     # get data for each page
     out_raw <- chatter_GET(bearer_token = bearer_token,
-                     path = paste0("/research/users.json?page=", page))
-    #out_clean <- return_structure(out_raw)
+                           path = paste0("/research/users.json?page=", page))
     
+    # get meta-data
     Path <- out_raw$path
     Status <- out_raw$parsed$status
     Error <- out_raw$parsed$error
     Error <- ifelse(is.null(Error), "no error", Error)
+    
+    # append data
     data_notes <- data.frame(Path, Status, Error)
     data_notes_full <- rbind.data.frame(data_notes_full, data_notes)
-  
+    
     # append page's data to full data set
-    all_data <- rbind.data.frame(all_data, out_clean$content) 
-  
+    all_data <- rbind.data.frame(all_data, out_raw$parsed$users) 
+    
     # check if the page's data is empty,
     # if so, stop while loop
-    if(length(out_raw$parsed$experiments) == 0){
+    if(length(out_raw$parsed$users) == 0){
       keep_paginating <- FALSE
     }
   }
@@ -237,7 +230,7 @@ list_users <- function () {
 #'
 #' @export
 list_chatroom_memberships <- function () {
-
+  
   bearer_token <- get_bearer_token()
   
   keep_paginating <- TRUE
@@ -249,22 +242,24 @@ list_chatroom_memberships <- function () {
     
     # get data for each page
     out_raw <- chatter_GET(bearer_token = bearer_token,
-                     path = paste0("/research/chatroom_memberships.json?page=", page))
-    #out_clean <- return_structure(out_raw)
+                           path = paste0("/research/chatroom_memberships.json?page=", page))
     
+    # get meta-data
     Path <- out_raw$path
     Status <- out_raw$parsed$status
     Error <- out_raw$parsed$error
     Error <- ifelse(is.null(Error), "no error", Error)
+    
+    # append data
     data_notes <- data.frame(Path, Status, Error)
     data_notes_full <- rbind.data.frame(data_notes_full, data_notes)
     
     # append page's data to full data set
-    all_data <- rbind.data.frame(all_data, out_clean$content) 
+    all_data <- rbind.data.frame(all_data, out_raw$parsed$chatroom_memberships) 
     
     # check if the page's data is empty,
     # if so, stop while loop
-    if(length(out_raw$parsed$experiments) == 0){
+    if(length(out_raw$parsed$chatroom_memberships) == 0){
       keep_paginating <- FALSE
     }
   }
@@ -291,7 +286,7 @@ list_chatroom_memberships <- function () {
 #'
 #' @export
 list_messages <- function () {
-
+  
   bearer_token <- get_bearer_token()
   
   keep_paginating <- TRUE
@@ -303,22 +298,24 @@ list_messages <- function () {
     
     # get data for each page
     out_raw <- chatter_GET(bearer_token = bearer_token,
-                     path = paste0("/research/messages.json?page=", page))
-    #out_clean <- return_structure(out_raw)
+                           path = paste0("/research/messages.json?page=", page))
     
+    # get meta-data
     Path <- out_raw$path
     Status <- out_raw$parsed$status
     Error <- out_raw$parsed$error
     Error <- ifelse(is.null(Error), "no error", Error)
+    
+    # append data
     data_notes <- data.frame(Path, Status, Error)
     data_notes_full <- rbind.data.frame(data_notes_full, data_notes)
     
     # append page's data to full data set
-    all_data <- rbind.data.frame(all_data, out_clean$content) 
+    all_data <- rbind.data.frame(all_data, out_raw$parsed$messages) 
     
     # check if the page's data is empty,
     # if so, stop while loop
-    if(length(out_raw$parsed$experiments) == 0){
+    if(length(out_raw$parsed$messages) == 0){
       keep_paginating <- FALSE
     }
   }
