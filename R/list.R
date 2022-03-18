@@ -47,7 +47,7 @@ list_experiments <- function () {
     }
   }
   
-  return(list("all_data" = all_data,
+  return(list("content" = all_data,
               "meta_data" = data_notes_full))
 }
              
@@ -102,7 +102,7 @@ list_instructions <- function () {
     }
   }
   
-  return(list("all_data" = all_data,
+  return(list("content" = all_data,
               "meta_data" = data_notes_full))
 }
 
@@ -156,7 +156,7 @@ list_chatrooms <- function () {
     }
   }
   
-  return(list("all_data" = all_data,
+  return(list("content" = all_data,
               "meta_data" = data_notes_full))
 }
 
@@ -209,7 +209,7 @@ list_users <- function () {
     }
   }
   
-  return(list("all_data" = all_data,
+  return(list("content" = all_data,
               "meta_data" = data_notes_full))
 }
 
@@ -264,7 +264,7 @@ list_chatroom_memberships <- function () {
     }
   }
   
-  return(list("all_data" = all_data,
+  return(list("content" = all_data,
               "meta_data" = data_notes_full))
 }
 
@@ -320,7 +320,7 @@ list_messages <- function () {
     }
   }
   
-  return(list("all_data" = all_data,
+  return(list("content" = all_data,
               "meta_data" = data_notes_full))
 }
 

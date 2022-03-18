@@ -16,8 +16,12 @@
 delete_experiment <- function (experiment_id) {
 
   bearer_token <- get_bearer_token()
-  
+ 
+   
   # inside a loop ---
+  # should work for a vector or just a single numeric value
+  #c(1, 12, 54)
+  #1
   path <- paste0("/research/experiments/",
                  experiment_id,
                  ".json")
@@ -26,8 +30,10 @@ delete_experiment <- function (experiment_id) {
                         path = path)
   # --------
 
+  
+  # return something just like list() function does.
   # we return a list of two elements just like in the list() functions
-  # content (or all_data as it's written now) is still returned, but it's just empty
+  # content is still returned, but it's just empty
   return_structure(out, delete = T)
 }
 
