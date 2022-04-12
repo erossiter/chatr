@@ -22,12 +22,13 @@ delete_experiment <- function (experiment_id) {
   # should work for a vector or just a single numeric value
   #c(1, 12, 54)
   #1
+  for(i in experiment_id){
   path <- paste0("/research/experiments/",
-                 experiment_id,
+                 i,
                  ".json")
 
   out <- chatter_DELETE(bearer_token = bearer_token,
-                        path = path)
+                        path = path)}
   # --------
 
   
@@ -145,16 +146,31 @@ delete_user <- function (user_id) {
 #' @export
 delete_chatroom_membership <- function (chatroom_membership_id) {
 
-  path <- paste0("/research/chatroom_memberships/",
-                 chatroom_membership_id,
+ 
+   bearer_token <- get_bearer_token()
+   
+   data_notes_full <- data.frame()
+  
+   for(i in chatroom_membership_id){
+   path <- paste0("/research/chatroom_memberships/",
+                 i,
                  ".json")
 
-  bearer_token <- get_bearer_token()
+  
 
   out <- chatter_DELETE(bearer_token = bearer_token,
                         path = path)
+   
+   Path <- out$path
+   Status <- out$parsed$status
+   Error <- out$parsed$error
+   Error <- ifelse(is.null(Error), "no error", Error)
+   
+   data_notes <- data.frame(Path, Status, Error)
+   data_notes_full <- rbind.data.frame(data_notes_full, data_notes)}
 
-  return_structure(out, delete = T)
+   return(list("content" = NA,
+               "meta_data" = data_notes_full))
 }
 
 #' Delete a message

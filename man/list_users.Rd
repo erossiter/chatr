@@ -7,9 +7,10 @@
 list_users()
 }
 \value{
-Returns a list of four elements.  \code{status} is a string indicating whether the API call was successful or not,
-\code{error} is a string indicating any error message provided, \code{content} is a dataframe of the requested content, and
-\code{meta_data} is a list of meta data associated with the API call.
+Returns a list of two elements. \code{content} is a dataframe of the requested content.
+\code{meta_data} is a dataframe of meta data associated with the API call for each page of the \code{content} dataframe- \code{path} is a
+string indicating the path for each page of data, \code{status} is a string indicating whether the API call was successful
+or not, and \code{error} is a string indicating any error message provided.
 }
 \description{
 List all users

@@ -1,9 +1,10 @@
 #' List all experiments
 #'
 #'
-#' @return Returns a list of four elements.  `status` is a string indicating whether the API call was successful or not,
-#' `error` is a string indicating any error message provided, `content` is a dataframe of the requested content, and
-#' `meta_data` is a list of meta data associated with the API call.
+#' @return Returns a list of two elements. `content` is a dataframe of the requested content. 
+#' `meta_data` is a dataframe of meta data associated with the API call for each page of the `content` dataframe- `path` is a 
+#' string indicating the path for each page of data, `status` is a string indicating whether the API call was successful 
+#' or not, and `error` is a string indicating any error message provided.
 #'
 #' @examples
 #'
@@ -56,9 +57,10 @@ list_experiments <- function () {
 #' List all instructions
 #'
 #'
-#' @return Returns a list of four elements.  `status` is a string indicating whether the API call was successful or not,
-#' `error` is a string indicating any error message provided, `content` is a dataframe of the requested content, and
-#' `meta_data` is a list of meta data associated with the API call.
+#' @return Returns a list of two elements. `content` is a dataframe of the requested content. 
+#' `meta_data` is a dataframe of meta data associated with the API call for each page of the `content` dataframe- `path` is a 
+#' string indicating the path for each page of data, `status` is a string indicating whether the API call was successful 
+#' or not, and `error` is a string indicating any error message provided.
 #'
 #' @examples
 #'
@@ -110,10 +112,11 @@ list_instructions <- function () {
 #' List all chatrooms
 #'
 #'
-#' @return Returns a list of four elements.  `status` is a string indicating whether the API call was successful or not,
-#' `error` is a string indicating any error message provided, `content` is a dataframe of the requested content, and
-#' `meta_data` is a list of meta data associated with the API call.
-#'
+#' @return Returns a list of two elements. `content` is a dataframe of the requested content. 
+#' `meta_data` is a dataframe of meta data associated with the API call for each page of the `content` dataframe- `path` is a 
+#' string indicating the path for each page of data, `status` is a string indicating whether the API call was successful 
+#' or not, and `error` is a string indicating any error message provided.
+#' 
 #' @examples
 #'
 #' \dontrun{
@@ -163,9 +166,10 @@ list_chatrooms <- function () {
 #' List all users
 #'
 #'
-#' @return Returns a list of four elements.  `status` is a string indicating whether the API call was successful or not,
-#' `error` is a string indicating any error message provided, `content` is a dataframe of the requested content, and
-#' `meta_data` is a list of meta data associated with the API call.
+#' @return Returns a list of two elements. `content` is a dataframe of the requested content. 
+#' `meta_data` is a dataframe of meta data associated with the API call for each page of the `content` dataframe- `path` is a 
+#' string indicating the path for each page of data, `status` is a string indicating whether the API call was successful 
+#' or not, and `error` is a string indicating any error message provided.
 #'
 #' @examples
 #'
@@ -218,9 +222,10 @@ list_users <- function () {
 #' List all chatroom memberships
 #'
 #'
-#' @return Returns a list of four elements.  `status` is a string indicating whether the API call was successful or not,
-#' `error` is a string indicating any error message provided, `content` is a dataframe of the requested content, and
-#' `meta_data` is a list of meta data associated with the API call.
+#' @return Returns a list of two elements. `content` is a dataframe of the requested content. 
+#' `meta_data` is a dataframe of meta data associated with the API call for each page of the `content` dataframe- `path` is a 
+#' string indicating the path for each page of data, `status` is a string indicating whether the API call was successful 
+#' or not, and `error` is a string indicating any error message provided.
 #'
 #' @examples
 #'
@@ -270,13 +275,13 @@ list_chatroom_memberships <- function () {
 
 
 
-
 #' List all messages
 #'
 #'
-#' @return Returns a list of four elements.  `status` is a string indicating whether the API call was successful or not,
-#' `error` is a string indicating any error message provided, `content` is a dataframe of the requested content, and
-#' `meta_data` is a list of meta data associated with the API call.
+#' @return Returns a list of two elements. `content` is a dataframe of the requested content. 
+#' `meta_data` is a dataframe of meta data associated with the API call for each page of the `content` dataframe- `path` is a 
+#' string indicating the path for each page of data, `status` is a string indicating whether the API call was successful 
+#' or not, and `error` is a string indicating any error message provided.
 #'
 #' @examples
 #'
