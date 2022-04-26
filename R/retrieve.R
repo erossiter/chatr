@@ -13,19 +13,51 @@
 #' }
 #'
 #' @export
+# retrieve_experiment <- function (experiment_id) {
+# 
+#   path <- paste0("/research/experiments/",
+#                  experiment_id,
+#                  ".json")
+# 
+#   bearer_token <- get_bearer_token()
+# 
+#   out <- chatter_GET(bearer_token = bearer_token,
+#                      path = path)
+# 
+#   return_structure(out)
+# }
+
 retrieve_experiment <- function (experiment_id) {
-
-  path <- paste0("/research/experiments/",
-                 experiment_id,
-                 ".json")
-
+  
   bearer_token <- get_bearer_token()
-
+  
+  all_data <- data.frame()
+  data_notes_full <- data.frame()
+  
+  for(i in experiment_id){
+    path <- paste0("/research/experiments/",
+                   i,
+                   ".json")
+  
   out <- chatter_GET(bearer_token = bearer_token,
                      path = path)
-
-  return_structure(out)
+  print(out)
+  print(out$parsed$experiment)
+  
+  Path <- out$path
+  Status <- out$parsed$status
+  Error <- out$parsed$error
+  Error <- ifelse(is.null(Error), "no error", Error)
+  
+  all_data <- rbind.data.frame(all_data, as.data.frame(out$parsed$experiment))
+  
+  data_notes <- data.frame(Path, Status, Error)
+  data_notes_full <- rbind.data.frame(data_notes_full, data_notes)}
+  
+  return(list("content" = all_data,
+              "meta_data" = data_notes_full))
 }
+  
 
 #' Retrieve an instruction
 #'

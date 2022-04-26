@@ -7,12 +7,13 @@
 delete_chatroom(chatroom_id)
 }
 \arguments{
-\item{chatroom_id}{A numeric. The unique ID for the chatroom.}
+\item{chatroom_id}{A numeric. The unique ID for the chatroom or a vector of multiple IDs.}
 }
 \value{
-Returns a list of four elements.  \code{status} is a string indicating whether the API call was successful or not,
-\code{error} is a string indicating any error message provided, \code{content} is \code{NA} as no information is created or requested in a DELETE call, and
-\code{meta_data} is a list of meta data associated with the API call.
+Returns a list of two elements. \code{content} is \code{NA} as no information is created or requested in a DELETE call.
+\code{meta_data} is a list of meta data associated with the API call including the following elements. \code{path} is a
+string indicating the path for each deleted object, \code{status} is a string indicating whether the API call was successful
+or not, and \code{error} is a string indicating any error message provided.
 }
 \description{
 Delete a chatroom
