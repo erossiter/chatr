@@ -26,7 +26,7 @@ delete_experiment <- function (experiment_id) {
                      ".json")
       
       
-      
+  
       out <- chatter_DELETE(bearer_token = bearer_token,
                             path = path)
       

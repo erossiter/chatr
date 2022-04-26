@@ -7,12 +7,13 @@
 delete_experiment(experiment_id)
 }
 \arguments{
-\item{experiment_id}{A numeric. The unique ID for the experiment.}
+\item{experiment_id}{A numeric. The unique ID for the experiment or a vector of multiple IDs.}
 }
 \value{
-Returns a data.  \code{status} is a string indicating whether the API call was successful or not,
-\code{error} is a string indicating any error message provided, \code{content} is \code{NA} as no information is created or requested in a DELETE call, and
-\code{meta_data} is a list of meta data associated with the API call.
+Returns a list of two elements. \code{content} is \code{NA} as no information is created or requested in a DELETE call.
+\code{meta_data} is a list of meta data associated with the API call including the following elements. \code{path} is a
+string indicating the path for each deleted object, \code{status} is a string indicating whether the API call was successful
+or not, and \code{error} is a string indicating any error message provided.
 }
 \description{
 Delete an experiment
