@@ -1,10 +1,11 @@
 #' Retrieve an experiment
 #'
-#' @param experiment_id A numeric. The unique ID for the experiment.
+#' @param experiment_id A numeric. The unique ID for the experiment or a vector of multiple IDs.
 #'
-#' @return Returns a list of four elements.  `status` is a string indicating whether the API call was successful or not,
-#' `error` is a string indicating any error message provided, `content` is a dataframe of the requested content, and
-#' `meta_data` is a list of meta data associated with the API call.
+#' @return Returns a list of two elements. `content` is a dataframe of the requested content for each ID or multiple IDs. 
+#' `meta_data` is a dataframe of meta data associated with the API call including the following elements. `path` is a 
+#' string indicating the path for each retrieved object, `status` is a string indicating whether the API call was successful 
+#' or not, and `error` is a string indicating any error message provided.
 #'
 #' @examples
 #'
@@ -13,19 +14,6 @@
 #' }
 #'
 #' @export
-# retrieve_experiment <- function (experiment_id) {
-#
-#   path <- paste0("/research/experiments/",
-#                  experiment_id,
-#                  ".json")
-#
-#   bearer_token <- get_bearer_token()
-#
-#   out <- chatter_GET(bearer_token = bearer_token,
-#                      path = path)
-#
-#   return_structure(out)
-# }
 
 retrieve_experiment <- function (experiment_id) {
 
@@ -65,11 +53,12 @@ retrieve_experiment <- function (experiment_id) {
 
 #' Retrieve an instruction
 #'
-#' @param instruction_id A numeric. The unique ID for the instruction.
+#' @param instruction_id A numeric. The unique ID for the instruction or a vector of multiple IDs.
 #'
-#' @return Returns a list of four elements.  `status` is a string indicating whether the API call was successful or not,
-#' `error` is a string indicating any error message provided, `content` is a dataframe of the requested content, and
-#' `meta_data` is a list of meta data associated with the API call.
+#' @return Returns a list of two elements. `content` is a dataframe of the requested content for each ID or multiple IDs. 
+#' `meta_data` is a dataframe of meta data associated with the API call including the following elements. `path` is a 
+#' string indicating the path for each retrieved object, `status` is a string indicating whether the API call was successful 
+#' or not, and `error` is a string indicating any error message provided.
 #'
 #' @examples
 #'
@@ -78,27 +67,52 @@ retrieve_experiment <- function (experiment_id) {
 #' }
 #'
 #' @export
+
 retrieve_instruction <- function (instruction_id) {
-
-  path <- paste0("/research/instructions/",
-                 instruction_id,
-                 ".json")
-
+  
   bearer_token <- get_bearer_token()
-
-  out <- chatter_GET(bearer_token = bearer_token,
-                     path = path)
-
-  return_structure(out)
+  
+  all_data <- data.frame()
+  data_notes_full <- data.frame()
+  
+  for(i in instruction_id){
+    path <- paste0("/research/instructions/",
+                   i,
+                   ".json")
+    
+    out <- chatter_GET(bearer_token = bearer_token,
+                       path = path)
+    
+    content <- lapply(out$parsed$instruction, function(x){
+      ifelse(is.null(x), NA, x)
+    })
+    
+    
+    Path <- out$path
+    Status <- out$parsed$status
+    Error <- out$parsed$error
+    Error <- ifelse(is.null(Error), "no error", Error)
+    
+    
+    all_data <- rbind.data.frame(all_data, as.data.frame(content))
+    
+    data_notes <- data.frame(Path, Status, Error)
+    data_notes_full <- rbind.data.frame(data_notes_full, data_notes)}
+  
+  return(list("content" = all_data,
+              "meta_data" = data_notes_full))
 }
+
+
 
 #' Retrieve a chatroom
 #'
-#' @param chatroom_id A numeric. The unique ID for the chatroom.
+#' @param chatroom_id A numeric. The unique ID for the chatroom or a vector of multiple IDs.
 #'
-#' @return Returns a list of four elements.  `status` is a string indicating whether the API call was successful or not,
-#' `error` is a string indicating any error message provided, `content` is a dataframe of the requested content, and
-#' `meta_data` is a list of meta data associated with the API call.
+#' @return Returns a list of two elements. `content` is a dataframe of the requested content for each ID or multiple IDs. 
+#' `meta_data` is a dataframe of meta data associated with the API call including the following elements. `path` is a 
+#' string indicating the path for each retrieved object, `status` is a string indicating whether the API call was successful 
+#' or not, and `error` is a string indicating any error message provided.
 #'
 #' @examples
 #'
@@ -107,28 +121,51 @@ retrieve_instruction <- function (instruction_id) {
 #' }
 #'
 #' @export
+
 retrieve_chatroom <- function (chatroom_id) {
-
-  path <- paste0("/research/chatrooms/",
-                 chatroom_id,
-                 ".json")
-
+  
   bearer_token <- get_bearer_token()
-
-  out <- chatter_GET(bearer_token = bearer_token,
-                     path = path)
-
-  return_structure(out)
+  
+  all_data <- data.frame()
+  data_notes_full <- data.frame()
+  
+  for(i in chatroom_id){
+    path <- paste0("/research/chatrooms/",
+                   i,
+                   ".json")
+    
+    out <- chatter_GET(bearer_token = bearer_token,
+                       path = path)
+    
+    content <- lapply(out$parsed$chatroom, function(x){
+      ifelse(is.null(x), NA, x)
+    })
+    
+    
+    Path <- out$path
+    Status <- out$parsed$status
+    Error <- out$parsed$error
+    Error <- ifelse(is.null(Error), "no error", Error)
+    
+    
+    all_data <- rbind.data.frame(all_data, as.data.frame(content))
+    
+    data_notes <- data.frame(Path, Status, Error)
+    data_notes_full <- rbind.data.frame(data_notes_full, data_notes)}
+  
+  return(list("content" = all_data,
+              "meta_data" = data_notes_full))
 }
 
 
 #' Retrieve a user
 #'
-#' @param user_id A numeric. The unique ID for the user.
+#' @param user_id A numeric. The unique ID for the user or a vector of multiple IDs.
 #'
-#' @return Returns a list of four elements.  `status` is a string indicating whether the API call was successful or not,
-#' `error` is a string indicating any error message provided, `content` is a dataframe of the requested content, and
-#' `meta_data` is a list of meta data associated with the API call.
+#' @return Returns a list of two elements. `content` is a dataframe of the requested content for each ID or multiple IDs. 
+#' `meta_data` is a dataframe of meta data associated with the API call including the following elements. `path` is a 
+#' string indicating the path for each retrieved object, `status` is a string indicating whether the API call was successful 
+#' or not, and `error` is a string indicating any error message provided.
 #'
 #' @examples
 #'
@@ -137,27 +174,50 @@ retrieve_chatroom <- function (chatroom_id) {
 #' }
 #'
 #' @export
+
 retrieve_user <- function (user_id) {
-
-  path <- paste0("/research/users/",
-                 user_id,
-                 ".json")
-
+  
   bearer_token <- get_bearer_token()
-
-  out <- chatter_GET(bearer_token = bearer_token,
-                     path = path)
-
-  return_structure(out)
+  
+  all_data <- data.frame()
+  data_notes_full <- data.frame()
+  
+  for(i in user_id){
+    path <- paste0("/research/users/",
+                   i,
+                   ".json")
+    
+    out <- chatter_GET(bearer_token = bearer_token,
+                       path = path)
+    
+    content <- lapply(out$parsed$user, function(x){
+      ifelse(is.null(x), NA, x)
+    })
+    
+    
+    Path <- out$path
+    Status <- out$parsed$status
+    Error <- out$parsed$error
+    Error <- ifelse(is.null(Error), "no error", Error)
+    
+    
+    all_data <- rbind.data.frame(all_data, as.data.frame(content))
+    
+    data_notes <- data.frame(Path, Status, Error)
+    data_notes_full <- rbind.data.frame(data_notes_full, data_notes)}
+  
+  return(list("content" = all_data,
+              "meta_data" = data_notes_full))
 }
 
 #' Retrieve a chatroom membership
 #'
-#' @param chatroom_membership_id A numeric. The unique ID for the chatroom membership.
+#' @param chatroom_membership_id A numeric. The unique ID for the chatroom membership or a vector of multiple IDs.
 #'
-#' @return Returns a list of four elements.  `status` is a string indicating whether the API call was successful or not,
-#' `error` is a string indicating any error message provided, `content` is a dataframe of the requested content, and
-#' `meta_data` is a list of meta data associated with the API call.
+#' @return Returns a list of two elements. `content` is a dataframe of the requested content for each ID or multiple IDs. 
+#' `meta_data` is a dataframe of meta data associated with the API call including the following elements. `path` is a 
+#' string indicating the path for each retrieved object, `status` is a string indicating whether the API call was successful 
+#' or not, and `error` is a string indicating any error message provided.
 #'
 #' @examples
 #'
@@ -166,27 +226,54 @@ retrieve_user <- function (user_id) {
 #' }
 #'
 #' @export
+
 retrieve_chatroom_membership <- function (chatroom_membership_id) {
 
-  path <- paste0("/research/chatroom_memberships/",
-                 chatroom_membership_id,
-                 ".json")
-
   bearer_token <- get_bearer_token()
-
-  out <- chatter_GET(bearer_token = bearer_token,
-                     path = path)
-
-  return_structure(out)
+  
+  all_data <- data.frame()
+  data_notes_full <- data.frame()
+  
+  for(i in chatroom_membership_id){
+    path <- paste0("/research/chatroom_memberships/",
+                   i,
+                   ".json")
+    
+    out <- chatter_GET(bearer_token = bearer_token,
+                       path = path)
+    
+    content <- lapply(out$parsed$chatroom_membership, function(x){
+      ifelse(is.null(x), NA, x)
+    })
+    
+    
+    Path <- out$path
+    Status <- out$parsed$status
+    Error <- out$parsed$error
+    Error <- ifelse(is.null(Error), "no error", Error)
+    
+    
+    all_data <- rbind.data.frame(all_data, as.data.frame(content))
+    
+    data_notes <- data.frame(Path, Status, Error)
+    data_notes_full <- rbind.data.frame(data_notes_full, data_notes)}
+  
+  return(list("content" = all_data,
+              "meta_data" = data_notes_full))
 }
+
+  
+  
+  
 
 #' Retrieve a message
 #'
-#' @param message_id A numeric. The unique ID for the message.
+#' @param message_id A numeric. The unique ID for the message or a vector of multiple IDs.
 #'
-#' @return Returns a list of four elements.  `status` is a string indicating whether the API call was successful or not,
-#' `error` is a string indicating any error message provided, `content` is a dataframe of the requested content, and
-#' `meta_data` is a list of meta data associated with the API call.
+#' @return Returns a list of two elements. `content` is a dataframe of the requested content for each ID or multiple IDs. 
+#' `meta_data` is a dataframe of meta data associated with the API call including the following elements. `path` is a 
+#' string indicating the path for each retrieved object, `status` is a string indicating whether the API call was successful 
+#' or not, and `error` is a string indicating any error message provided.
 #'
 #' @examples
 #'
@@ -195,17 +282,40 @@ retrieve_chatroom_membership <- function (chatroom_membership_id) {
 #' }
 #'
 #' @export
-retrieve_message<- function (message_id) {
 
-  path <- paste0("/research/messages/",
-                 message_id,
-                 ".json")
-
+retrieve_message <- function (message_id) {
+  
   bearer_token <- get_bearer_token()
-
-  out <- chatter_GET(bearer_token = bearer_token,
-                     path = path)
-
-  return_structure(out)
+  
+  all_data <- data.frame()
+  data_notes_full <- data.frame()
+  
+  for(i in message_id){
+    path <- paste0("/research/messages/",
+                   i,
+                   ".json")
+    
+    out <- chatter_GET(bearer_token = bearer_token,
+                       path = path)
+    
+    content <- lapply(out$parsed$message, function(x){
+      ifelse(is.null(x), NA, x)
+    })
+    
+    
+    Path <- out$path
+    Status <- out$parsed$status
+    Error <- out$parsed$error
+    Error <- ifelse(is.null(Error), "no error", Error)
+    
+    
+    all_data <- rbind.data.frame(all_data, as.data.frame(content))
+    
+    data_notes <- data.frame(Path, Status, Error)
+    data_notes_full <- rbind.data.frame(data_notes_full, data_notes)}
+  
+  return(list("content" = all_data,
+              "meta_data" = data_notes_full))
 }
+
 
